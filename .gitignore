@@ -1,0 +1,7 @@
+auto-save-list/*
+bookmarks
+.chicken-scheme-symbols-dump.el
+session*
+smex-items
+temp/*
+ac-*.data
