@@ -5,3 +5,8 @@ session*
 smex-items
 temp/*
 ac-*.data
+*.dat
+*~
+recentf
+*.last
+elpa/*

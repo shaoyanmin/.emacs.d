@@ -35,3 +35,4 @@
 
 (toggle-truncate-lines t)
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)

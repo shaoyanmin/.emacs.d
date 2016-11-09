@@ -11,7 +11,47 @@
  (lambda (package)
    (unless (package-installed-p package)
      (package-install package)))
- '(use-package))
+ '(
+   ac-geiser
+   ace-jump-buffer
+   ace-jump-mode
+   ag
+   auto-complete
+   autopair
+   cycbuf
+   doom-themes
+   emmet-mode
+   geiser
+   helm
+   key-chord
+   magit
+   markdown-mode
+   multiple-cursors
+   paredit
+   rainbow-delimiters
+   smart-tabs-mode
+   smex           
+   textmate
+   undo-tree
+   use-package
+   web-mode
+   ))
+
+
+(cond
+ ((string-equal system-type "windows-nt") ; Microsoft Windows
+  (progn
+    (message "Microsoft Windows")))
+ ((string-equal system-type "darwin") ; Mac OS X
+  (progn
+    (message "Mac OS X")
+    (set-default-font "Monaco 13")
+    (setq mac-command-modifier 'control)))
+ ((string-equal system-type "gnu/linux") ; linux
+  (progn
+    (set-default-font "Source Code Pro")
+    (message "Linux"))))
+
 
 
 ;;

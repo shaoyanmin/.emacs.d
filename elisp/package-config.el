@@ -1,11 +1,26 @@
 ;; Main
-(use-package doom-themes)
+(use-package doom-themes
+  :config
+  (require 'doom-themes)
+  (load-theme 'doom-one t)
+  (add-hook 'find-file-hook 'doom-buffer-mode)
+  ;; brighter minibuffer when active
+  (add-hook 'minibuffer-setup-hook 'doom-brighten-minibuffer)
+  ;; (require 'doom-neotree)
+  )
 
-(use-package expand-region)
 
 (use-package helm
   :bind
-  (:map helm-major-mode-map ("M-i" . helm-keyboard-quit)))
+  (:map helm-map
+        ("M-i" . helm-keyboard-quit)
+        ("M-n" . helm-next-line)
+        ("M-o" . helm-previous-line)
+        ("M-p" . helm-previous-line)
+        ("C-p" . helm-previous-line)
+        ("C-o" . helm-previous-line)
+        ))
+
 
 (use-package magit)
 
@@ -23,7 +38,24 @@
 
 (use-package auto-complete
   :config
-  (global-auto-complete-mode t))
+  (global-auto-complete-mode t)
+  (require 'auto-complete-config)
+  (setq ac-use-fuzzy t)
+  (setq ac-ignore-case nil)
+  (define-key ac-completing-map (kbd "M-o") 'ac-previous)
+  (set-default 'ac-sources
+               '(;;ac-source-semantic-raw
+                 ;; ac-source-yasnippet
+                 ac-source-dictionary
+                 ac-source-abbrev
+                 ac-source-words-in-buffer
+                 ac-source-words-in-same-mode-buffers
+                 ac-source-files-in-current-dir
+                 ;; ac-source-filename
+                 ))
+  )
+
+
 
 (use-package autopair
   :config
@@ -55,7 +87,40 @@
 
 (use-package markdown-mode)
 
-(use-package web-mode)
+(use-package emmet-mode)
+
+(use-package web-mode
+  :mode ("\\.html" . web-mode)
+  :config
+  (require 'sgml-mode)
+  (add-hook 'web-mode-hook 'emmet-mode)
+  :bind
+  (:map web-mode-map
+        ("C-M-f" . web-mode-tag-next)
+        ("C-M-b" . web-mode-tag-previous)
+        ("C-M-e" . web-mode-element-end)
+        ("C-M-a" . web-mode-element-beginning)
+        ("C-M-k" . web-mode-element-kill)
+        ("C-M-n" . sgml-skip-tag-forward)
+        ("C-M-p" . sgml-skip-tag-backward)
+        ("C-M-o" . sgml-skip-tag-backward)
+        ("C-M-u" . web-mode-element-parent)
+        ("C-M-d" . web-mode-element-child)
+        ("<return>" . newline-and-indent)
+        ))
+
+(use-package js2-mode
+  :mode ("\\.js" . js2-mode)
+  :bind
+  (:map js2-mode-map
+        ("M-j" . other-window)
+        ("M-<return>" . js2-line-break)))
+
+(use-package neotree
+  :config
+  (setq neo-smart-open t)
+  (global-set-key [f8] 'neotree-toggle)
+  )
 
 
 ;; Others
@@ -65,24 +130,8 @@
 (setq cycbuf-dont-show-regexp  '("^ "
                                  "^\\*.*\\*$"
                                  "^\\*magit.*$"
+                                 ".*Dired .*"
                                  "^\\*cycbuf\\*$"))
-
-
-
-
-(require 'auto-complete-config)
-(setq ac-use-fuzzy t)
-(setq ac-ignore-case nil)
-(define-key ac-completing-map (kbd "M-o") 'ac-previous)
-(set-default 'ac-sources
-               '(;;ac-source-semantic-raw
-                 ac-source-yasnippet
-                 ac-source-dictionary
-                 ac-source-abbrev
-                 ac-source-words-in-buffer
-                 ac-source-words-in-same-mode-buffers
-                 ac-source-files-in-current-dir
-                 ac-source-filename))
 
 
 (setq geiser-active-implementations '(chicken))
