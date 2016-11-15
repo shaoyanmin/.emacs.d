@@ -1,7 +1,7 @@
 ;;
 ;; MELPA
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'package) 
+(require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/"))
 ;; (add-to-list 'package-archives
@@ -30,8 +30,10 @@
    paredit
    rainbow-delimiters
    smart-tabs-mode
-   smex           
+   smex
    textmate
+   tern
+   tern-auto-complete
    undo-tree
    use-package
    web-mode
@@ -45,6 +47,10 @@
  ((string-equal system-type "darwin") ; Mac OS X
   (progn
     (message "Mac OS X")
+    (setenv "PATH"
+            (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+            )
+    (setq exec-path (append exec-path '("/usr/local/bin")))
     (set-default-font "Monaco 13")
     (setq mac-command-modifier 'control)))
  ((string-equal system-type "gnu/linux") ; linux
@@ -61,14 +67,14 @@
 (defun load-user-file (file)
   (interactive "f")
   (load-file (expand-file-name (concat file ".el") "~/.emacs.d/elisp/")))
- 
+
 (load-user-file "package-config")
 (load-user-file "style")
 (load-user-file "setting")
 (load-user-file "editor")
 (load-user-file "keybinding")
 
-(if (and (fboundp 'server-running-p) 
+(if (and (fboundp 'server-running-p)
          (not (server-running-p)))
    (server-start))
 

@@ -10,3 +10,5 @@ ac-*.data
 recentf
 *.last
 elpa/*
+/.mc-lists.el
+/tramp
