@@ -35,6 +35,14 @@ User buffers are those whose name does not start with *."
     (while (and (string-equal "*" (substring (buffer-name) 0 1)) (< i 20))
       (setq i (1+ i)) (next-buffer))))
 
+(defun semicolon-endline ()
+  "enter semicolon at end of the line"
+  (interactive)
+  (progn
+    (move-end-of-line 1)
+    (insert ";")
+    ))
+
 (defun previous-user-buffer ()
   "Switch to the previous user buffer.
 User buffers are those whose name does not start with *."

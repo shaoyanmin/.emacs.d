@@ -113,7 +113,8 @@
   :bind
   (:map js2-mode-map
         ("M-j" . other-window)
-        ("M-<return>" . js2-line-break)))
+        ("M-<return>" . semicolon-endline)
+        ("M-C-<return>" . js2-line-break)))
 
 
 (use-package tern

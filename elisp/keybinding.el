@@ -112,7 +112,7 @@
 ;; (global-set-key [f12] '(lambda () (interactive)
 ;;                         (speedbar-change-initial-expansion-list "quick buffers")
 ;;                         (sr-speedbar-toggle)))
-;; 
+;;
 
 
 ;;; Stuff I had some trouble defining normally
