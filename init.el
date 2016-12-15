@@ -76,8 +76,10 @@
 
 (if (and (fboundp 'server-running-p)
          (not (server-running-p)))
-   (server-start))
-
+    (progn
+      (server-start)
+      (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
+      ))
 
 
 (custom-set-variables

@@ -89,7 +89,7 @@
 (use-package emmet-mode)
 
 (use-package web-mode
-  :mode ("\\.html" . web-mode)
+  :mode ("\\.html" . web-mode) ("\\.ejs" . web-mode)
   :config
   (require 'sgml-mode)
   (add-hook 'web-mode-hook 'emmet-mode)
@@ -107,6 +107,10 @@
         ("C-M-d" . web-mode-element-child)
         ("<return>" . newline-and-indent)
         ))
+
+(use-package sass-mode
+  :mode ("\\.scss" . sass-mode)
+  :config (add-hook 'sass-mode-hook (lambda () (setq comment-start "//"))))
 
 (use-package js2-mode
   :mode ("\\.js" . js2-mode)
