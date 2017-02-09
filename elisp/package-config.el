@@ -60,7 +60,10 @@
   :config
   (autopair-global-mode))
 
-(use-package cycbuf)
+(use-package cycbuf
+  :config
+  (global-set-key (kbd "M-k") 'cycbuf-switch-to-previous-buffer)
+  (global-set-key (kbd "M-C-k") 'cycbuf-switch-to-next-buffer))
 
 (use-package key-chord
   :config
@@ -89,7 +92,7 @@
 (use-package emmet-mode)
 
 (use-package web-mode
-  :mode ("\\.html" . web-mode) ("\\.ejs" . web-mode)
+  :mode ("\\.html" . web-mode) ("\\.ejs" . web-mode) ("\\.vue" . web-mode)
   :config
   (require 'sgml-mode)
   (add-hook 'web-mode-hook 'emmet-mode)
@@ -109,7 +112,7 @@
         ))
 
 (use-package sass-mode
-  :mode ("\\.scss" . sass-mode)
+  :mode ("\\.scss" . css-mode)
   :config (add-hook 'sass-mode-hook (lambda () (setq comment-start "//"))))
 
 (use-package js2-mode
