@@ -28,6 +28,11 @@
   :config
   (global-undo-tree-mode t))
 
+(use-package expand-region
+  :config
+  (require 'expand-region)
+  (setq shift-select-mode nil))
+
 
 ;; Extensions
 (use-package ace-jump-buffer)
@@ -62,8 +67,8 @@
 
 (use-package cycbuf
   :config
-  (global-set-key (kbd "M-k") 'cycbuf-switch-to-previous-buffer)
-  (global-set-key (kbd "M-C-k") 'cycbuf-switch-to-next-buffer))
+  (global-set-key (kbd "M-k") 'cycbuf-switch-to-next-buffer)
+  (global-set-key (kbd "M-C-k") 'cycbuf-switch-to-previous-buffer))
 
 (use-package key-chord
   :config
@@ -111,6 +116,13 @@
         ("<return>" . newline-and-indent)
         ))
 
+(use-package web-beautify
+  :bind
+  (:map js2-mode-map
+        ("C-M-l" . web-beautify-js)
+        ("C-M-x" . js2-mark-defun)
+        ))
+
 (use-package sass-mode
   :mode ("\\.scss" . css-mode)
   :config (add-hook 'sass-mode-hook (lambda () (setq comment-start "//"))))
@@ -122,6 +134,11 @@
         ("M-j" . other-window)
         ("M-<return>" . semicolon-endline)
         ("M-C-<return>" . js2-line-break)))
+
+
+(use-package json-mode
+  :mode ("\\.json" . json-mode)
+  :config (add-hook 'json-mode-hook #'flycheck-mode))
 
 
 (use-package tern
@@ -138,6 +155,8 @@
   :config
   (setq neo-smart-open t)
   (global-set-key [f8] 'neotree-toggle)
+  :bind (:map neotree-mode-map
+              ("o" . neotree-previous-line))
   )
 
 

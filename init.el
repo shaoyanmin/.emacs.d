@@ -22,7 +22,9 @@
    doom-themes
    emmet-mode
    geiser
+   flycheck
    helm
+   json-mode
    key-chord
    magit
    markdown-mode
@@ -36,6 +38,7 @@
    tern-auto-complete
    undo-tree
    use-package
+   web-beautify
    web-mode
    ))
 
@@ -99,7 +102,7 @@
  '(kill-whole-line t)
  '(package-selected-packages
    (quote
-    (use-package web-mode undo-tree textmate smex rainbow-delimiters paredit multiple-cursors markdown-mode magit key-chord helm expand-region doom-themes cycbuf autopair ag ace-jump-mode ace-jump-buffer ac-geiser))))
+    (web-beautify use-package web-mode undo-tree textmate smex rainbow-delimiters paredit multiple-cursors markdown-mode magit key-chord helm expand-region doom-themes cycbuf autopair ag ace-jump-mode ace-jump-buffer ac-geiser))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
