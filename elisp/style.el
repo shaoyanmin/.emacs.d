@@ -1,6 +1,12 @@
 ;;
 ;; Theme & UI
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'doom-themes)
+(load-theme 'doom-one t)
+(set-face-attribute 'helm-selection nil
+                    :background "green"
+                    :foreground "black")
+
 ;; (load-theme 'misterioso)
 ;; (load-theme 'deeper-blue)
 
@@ -24,4 +30,3 @@
 (setq-default tab-width 2)
 (custom-set-variables '(c-basic-offset 4 t))
 (setq-default indent-tabs-mode nil)
-

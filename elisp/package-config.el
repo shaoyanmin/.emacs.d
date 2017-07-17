@@ -1,11 +1,16 @@
 ;; Main
 (use-package doom-themes
+  :init
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
   :config
-  (require 'doom-themes)
-  (load-theme 'doom-one t)
-  (add-hook 'find-file-hook 'doom-buffer-mode)
+  ;; Enable flashing mode-line on errors
+  ;; (doom-themes-visual-bell-config)
+
+  ;; (add-hook 'find-file-hook 'doom-buffer-mode)
   ;; brighter minibuffer when active
-  (add-hook 'minibuffer-setup-hook 'doom-brighten-minibuffer)
+  ;; (add-hook 'minibuffer-setup-hook 'doom-brighten-minibuffer)
   ;; (require 'doom-neotree)
   )
 
@@ -117,11 +122,12 @@
         ))
 
 (use-package web-beautify
-  :bind
-  (:map js2-mode-map
-        ("C-M-l" . web-beautify-js)
-        ("C-M-x" . js2-mark-defun)
-        ))
+  :config
+  (eval-after-load 'js2-mode '(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js))
+  (eval-after-load 'json-mode '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
+  (eval-after-load 'sgml-mode '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
+  (eval-after-load 'web-mode '(define-key web-mode-map (kbd "C-c b") 'web-beautify-html))
+  (eval-after-load 'css-mode '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css)))
 
 (use-package sass-mode
   :mode ("\\.scss" . css-mode)
@@ -154,9 +160,14 @@
 (use-package neotree
   :config
   (setq neo-smart-open t)
-  (global-set-key [f8] 'neotree-toggle)
+  (require neotree)
   :bind (:map neotree-mode-map
               ("o" . neotree-previous-line))
+  )
+
+(use-package plantuml-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
   )
 
 
