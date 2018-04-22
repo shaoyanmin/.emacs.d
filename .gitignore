@@ -12,3 +12,9 @@ recentf
 elpa/*
 /.mc-lists.el
 /tramp
+*.data
+*.orig
+*REMOTE*
+*LOCAL*
+*BACKUP*
+*BASE*

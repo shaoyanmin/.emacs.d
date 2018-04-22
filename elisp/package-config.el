@@ -91,9 +91,6 @@
 
 
 ;; Development
-(use-package ac-geiser)
-
-(use-package geiser)
 
 (use-package rainbow-delimiters)
 
@@ -165,11 +162,6 @@
               ("o" . neotree-previous-line))
   )
 
-(use-package plantuml-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-  )
-
 
 ;; Others
 (ido-mode t)
@@ -182,15 +174,7 @@
                                  "^\\*cycbuf\\*$"))
 
 
-(setq geiser-active-implementations '(chicken))
-
 (add-hook 'scheme-mode-hook '(lambda ()
                                (interactive)
                                (enable-paredit-mode)
                                (rainbow-delimiters-mode-enable)))
-
-
-(add-hook 'geiser-mode-hook 'ac-geiser-setup)
-(add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'geiser-repl-mode))
