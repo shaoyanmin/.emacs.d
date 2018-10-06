@@ -5,6 +5,8 @@
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
 
   :config
+  (load-theme 'doom-one t)
+
   ;; Enable flashing mode-line on errors
   ;; (doom-themes-visual-bell-config)
 
@@ -16,6 +18,11 @@
 
 
 (use-package helm
+  :config
+  (set-face-attribute 'helm-selection nil
+                      :background "#51afef"
+                      :foreground "black")
+
   :bind
   (:map helm-map
         ("M-i" . helm-keyboard-quit)
@@ -46,24 +53,24 @@
 
 (use-package ag)
 
-(use-package auto-complete
-  :config
-  (global-auto-complete-mode t)
-  (require 'auto-complete-config)
-  (setq ac-use-fuzzy t)
-  (setq ac-ignore-case nil)
-  (define-key ac-completing-map (kbd "M-o") 'ac-previous)
-  (set-default 'ac-sources
-               '(;;ac-source-semantic-raw
-                 ;; ac-source-yasnippet
-                 ac-source-dictionary
-                 ac-source-abbrev
-                 ac-source-words-in-buffer
-                 ac-source-words-in-same-mode-buffers
-                 ac-source-files-in-current-dir
-                 ;; ac-source-filename
-                 ))
-  )
+;; (use-package auto-complete
+;;   :config
+;;   (global-auto-complete-mode t)
+;;   (require 'auto-complete-config)
+;;   (setq ac-use-fuzzy t)
+;;   (setq ac-ignore-case nil)
+;;   (define-key ac-completing-map (kbd "M-o") 'ac-previous)
+;;   (set-default 'ac-sources
+;;                '(;;ac-source-semantic-raw
+;;                  ;; ac-source-yasnippet
+;;                  ac-source-dictionary
+;;                  ac-source-abbrev
+;;                  ac-source-words-in-buffer
+;;                  ac-source-words-in-same-mode-buffers
+;;                  ac-source-files-in-current-dir
+;;                  ;; ac-source-filename
+;;                  ))
+;;   )
 
 
 (use-package autopair
@@ -91,6 +98,9 @@
 
 
 ;; Development
+;; (use-package ac-geiser)
+
+;; (use-package geiser)
 
 (use-package rainbow-delimiters)
 
@@ -99,7 +109,7 @@
 (use-package emmet-mode)
 
 (use-package web-mode
-  :mode ("\\.html" . web-mode) ("\\.ejs" . web-mode) ("\\.vue" . web-mode)
+  :mode ("\\.html" . web-mode) ("\\.ejs" . web-mode) ("\\.vue" . web-mode) ("\\.wxml" . web-mode)
   :config
   (require 'sgml-mode)
   (add-hook 'web-mode-hook 'emmet-mode)
@@ -144,20 +154,20 @@
   :config (add-hook 'json-mode-hook #'flycheck-mode))
 
 
-(use-package tern
-  :config
-  (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-  (eval-after-load 'tern
-   '(progn
-      (require 'tern-auto-complete)
-      (tern-ac-setup)))
-  )
+;; (use-package tern
+;;   :config
+;;   (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+;;   ;; (eval-after-load 'tern
+;;   ;;  '(progn
+;;   ;;     (require 'tern-auto-complete)
+;;   ;;     (tern-ac-setup)))
+;;   )
 
 
 (use-package neotree
   :config
   (setq neo-smart-open t)
-  (require neotree)
+  ;; (require neotree)
   :bind (:map neotree-mode-map
               ("o" . neotree-previous-line))
   )
@@ -174,7 +184,14 @@
                                  "^\\*cycbuf\\*$"))
 
 
+;; (setq geiser-active-implementations '(chicken))
 (add-hook 'scheme-mode-hook '(lambda ()
                                (interactive)
                                (enable-paredit-mode)
                                (rainbow-delimiters-mode-enable)))
+
+
+;; (add-hook 'geiser-mode-hook 'ac-geiser-setup)
+;; (add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
+;; (eval-after-load "auto-complete"
+;;   '(add-to-list 'ac-modes 'geiser-repl-mode))

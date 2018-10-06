@@ -82,8 +82,8 @@
 ;;; window  or buffer
 
 (global-set-key (kbd "C-1") 'delete-other-windows)
-(global-set-key (kbd "C-2") 'ym-split-window-vertically)
-(global-set-key (kbd "C-3") 'ym-split-window-horizontally)
+(global-set-key (kbd "C-2") 'ym-split-window-horizontally)
+(global-set-key (kbd "C-3") 'ym-split-window-vertically)
 (global-set-key (kbd "C-4") 'delete-window)
 (global-set-key (kbd "C-5") 'close-current-buffer)
 (global-set-key (kbd "C-6") 'open-last-closed)

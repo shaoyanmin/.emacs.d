@@ -1,11 +1,7 @@
 ;;
 ;; Theme & UI
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'doom-themes)
-(load-theme 'doom-one t)
-(set-face-attribute 'helm-selection nil
-                    :background "green"
-                    :foreground "black")
+;; (load-theme 'tsdh-light)
 
 ;; (load-theme 'misterioso)
 ;; (load-theme 'deeper-blue)
