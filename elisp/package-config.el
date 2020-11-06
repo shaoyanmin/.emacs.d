@@ -113,6 +113,7 @@
   :config
   (require 'sgml-mode)
   (add-hook 'web-mode-hook 'emmet-mode)
+  (setq web-mode-markup-indent-offset 2)
   :bind
   (:map web-mode-map
         ("C-M-f" . web-mode-tag-next)
@@ -154,16 +155,6 @@
   :config (add-hook 'json-mode-hook #'flycheck-mode))
 
 
-;; (use-package tern
-;;   :config
-;;   (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-;;   ;; (eval-after-load 'tern
-;;   ;;  '(progn
-;;   ;;     (require 'tern-auto-complete)
-;;   ;;     (tern-ac-setup)))
-;;   )
-
-
 (use-package neotree
   :config
   (setq neo-smart-open t)
@@ -182,16 +173,3 @@
                                  "^\\*magit.*$"
                                  ".*Dired .*"
                                  "^\\*cycbuf\\*$"))
-
-
-;; (setq geiser-active-implementations '(chicken))
-(add-hook 'scheme-mode-hook '(lambda ()
-                               (interactive)
-                               (enable-paredit-mode)
-                               (rainbow-delimiters-mode-enable)))
-
-
-;; (add-hook 'geiser-mode-hook 'ac-geiser-setup)
-;; (add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
-;; (eval-after-load "auto-complete"
-;;   '(add-to-list 'ac-modes 'geiser-repl-mode))

@@ -1,19 +1,34 @@
 ;; Proxy for GFW
-(setq socks-override-functions 1)
-(setq socks-noproxy '("^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)"))
-(require 'socks)
-(setq url-gateway-method 'socks)
-(setq socks-server '("Default server" "127.0.0.1" 1080 5))
+;; (setq socks-override-functions 1)
+;; (setq socks-noproxy '("^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)"))
+;; (require 'socks)
+;; (setq url-gateway-method 'socks)
+;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
 
 
 ;;
 ;; MELPA
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/"))
-;; (add-to-list 'package-archives
-             ;; '("popkit" . "http://elpa.popkit.org/packages/"))
+
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                    (not (gnutls-available-p))))
+       (proto (if no-ssl "http" "https")))
+  (when no-ssl
+    (warn "\
+Your version of Emacs does not support SSL connections,
+which is unsafe because it allows man-in-the-middle attacks.
+There are two things you can do about this warning:
+1. Install an Emacs version that does support SSL and be safe.
+2. Remove this warning from your init file so you won't see it again."))
+  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+  (when (< emacs-major-version 24)
+    ;; For important compatibility libraries like cl-lib
+    (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
+
+
 (package-initialize)
 (mapc
  (lambda (package)
@@ -66,11 +81,11 @@
             (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
             )
     (setq exec-path (append exec-path '("/usr/local/bin")))
-    (set-default-font "Monaco 13")
+    ;; (set-default-font "Monaco 13")
     (setq mac-command-modifier 'control)))
  ((string-equal system-type "gnu/linux") ; linux
   (progn
-    (set-default-font "Source Code Pro")
+    ;; (set-default-font "Source Code Pro")
     (message "Linux"))))
 
 
@@ -102,7 +117,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(c-basic-offset 4)
  '(ansi-color-names-vector
    [("#1B2229" "#ff6c6b" "#98be65" "#ECBE7B" "#51afef" "#c678dd" "#46D9FF" "#DFDFDF")])
  '(c-basic-offset 4)
