@@ -8,13 +8,32 @@
   (load-theme 'doom-one t)
 
   ;; Enable flashing mode-line on errors
-  ;; (doom-themes-visual-bell-config)
+  (doom-themes-visual-bell-config)
 
   ;; (add-hook 'find-file-hook 'doom-buffer-mode)
   ;; brighter minibuffer when active
   ;; (add-hook 'minibuffer-setup-hook 'doom-brighten-minibuffer)
   ;; (require 'doom-neotree)
   )
+
+
+(use-package ivy
+  :diminish
+  :init
+  (setq ivy-use-virtual-buffers t
+        enable-recursive-minibuffers t)
+  :bind (:map ivy-minibuffer-map
+         ("TAB" . ivy-alt-done)
+         ("C-n" . ivy-next-line)
+         ("C-o" . ivy-previous-line)
+         :map ivy-switch-buffer-map
+         ("C-o" . ivy-previous-line)
+         ("C-k" . ivy-switch-buffer-kill)
+         :map ivy-reverse-i-search-map
+         ("C-o" . ivy-previous-line)
+         ("C-d" . ivy-reverse-i-search-kill))
+  :config
+  (ivy-mode 1))
 
 
 (use-package helm
@@ -77,10 +96,10 @@
   :config
   (autopair-global-mode))
 
-(use-package cycbuf
-  :config
-  (global-set-key (kbd "M-k") 'cycbuf-switch-to-next-buffer)
-  (global-set-key (kbd "M-C-k") 'cycbuf-switch-to-previous-buffer))
+;; (use-package cycbuf
+;;   :config
+;;   (global-set-key (kbd "M-k") 'cycbuf-switch-to-next-buffer)
+;;   (global-set-key (kbd "M-C-k") 'cycbuf-switch-to-previous-buffer))
 
 (use-package key-chord
   :config
@@ -92,7 +111,7 @@
 
 (use-package paredit)
 
-(use-package smex)
+;; (use-package smex)
 
 (use-package textmate)
 
@@ -165,11 +184,11 @@
 
 
 ;; Others
-(ido-mode t)
+;; (ido-mode t)
 
 
-(setq cycbuf-dont-show-regexp  '("^ "
-                                 "^\\*.*\\*$"
-                                 "^\\*magit.*$"
-                                 ".*Dired .*"
-                                 "^\\*cycbuf\\*$"))
+;; (setq cycbuf-dont-show-regexp  '("^ "
+;;                                  "^\\*.*\\*$"
+;;                                  "^\\*magit.*$"
+;;                                  ".*Dired .*"
+;;                                  "^\\*cycbuf\\*$"))
