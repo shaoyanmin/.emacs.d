@@ -53,25 +53,6 @@
 
 (use-package ag)
 
-;; (use-package auto-complete
-;;   :config
-;;   (global-auto-complete-mode t)
-;;   (require 'auto-complete-config)
-;;   (setq ac-use-fuzzy t)
-;;   (setq ac-ignore-case nil)
-;;   (define-key ac-completing-map (kbd "M-o") 'ac-previous)
-;;   (set-default 'ac-sources
-;;                '(;;ac-source-semantic-raw
-;;                  ;; ac-source-yasnippet
-;;                  ac-source-dictionary
-;;                  ac-source-abbrev
-;;                  ac-source-words-in-buffer
-;;                  ac-source-words-in-same-mode-buffers
-;;                  ac-source-files-in-current-dir
-;;                  ;; ac-source-filename
-;;                  ))
-;;   )
-
 
 (use-package autopair
   :config
@@ -95,12 +76,6 @@
 (use-package smex)
 
 (use-package textmate)
-
-
-;; Development
-;; (use-package ac-geiser)
-
-;; (use-package geiser)
 
 (use-package rainbow-delimiters)
 
