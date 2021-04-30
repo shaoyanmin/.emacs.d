@@ -1,11 +1,3 @@
-;;
-;; Theme & UI
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (load-theme 'tsdh-light)
-
-;; (load-theme 'misterioso)
-;; (load-theme 'deeper-blue)
-
 (scroll-bar-mode 0)
 (menu-bar-mode 1)
 (tool-bar-mode -1)

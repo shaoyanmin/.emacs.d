@@ -1,4 +1,3 @@
-;; Main
 (use-package doom-themes
   :init
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
@@ -9,7 +8,6 @@
   (doom-themes-visual-bell-config)
 
   ;; (add-hook 'find-file-hook 'doom-buffer-mode)
-  ;; brighter minibuffer when active
   ;; (add-hook 'minibuffer-setup-hook 'doom-brighten-minibuffer)
   ;; (require 'doom-neotree)
   )
