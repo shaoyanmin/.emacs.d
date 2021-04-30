@@ -11,7 +11,7 @@
 (setq dired-listing-switches "-alh")
 
 ;; useful in ido-mode
-;; (setq enable-recursive-minibuffers t)
+(setq enable-recursive-minibuffers t)
 
 ;; hippie-expand
 (setq hippie-expand-try-functions-list

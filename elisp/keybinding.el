@@ -24,8 +24,8 @@
 
 
 (global-set-key (kbd "C-x f") 'dired-jump)
-;; (global-set-key (kbd "C-x b") 'ym-ido-bookmark-jump)
-;; (global-set-key (kbd "C-x C-b") 'ym-ido-bookmark-jump)
+(global-set-key (kbd "C-x b") 'ym-ido-bookmark-jump)
+(global-set-key (kbd "C-x C-b") 'ym-ido-bookmark-jump)
 
 ;;; quick edit
 
@@ -67,9 +67,9 @@
 (global-set-key (kbd "M-j") 'other-window)
 (global-set-key (kbd "M-C-j") 'back-window)
 (global-set-key (kbd "M-i") 'helm-mini)
-;; (global-set-key (kbd "M-k") 'cycbuf-switch-to-next-buffer)
-;; (global-set-key (kbd "C-M-k") 'cycbuf-switch-to-previous-buffer)
-;; (global-set-key (kbd "M-K") 'ace-jump-buffer)
+(global-set-key (kbd "M-k") 'cycbuf-switch-to-next-buffer)
+(global-set-key (kbd "C-M-k") 'cycbuf-switch-to-previous-buffer)
+(global-set-key (kbd "M-K") 'ace-jump-buffer)
 
 
 ;;; search files by silver searcher (alternate tool of grep and ack)
@@ -152,10 +152,5 @@
 ;; functions written by myself
 ;; (global-set-key (kbd "C-h d") 'ym-function-at-point)
 
-;; (global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-s") 'swiper-isearch)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "M-y") 'counsel-yank-pop)
-
-;; (global-set-key (kbd "M-X") 'helm-M-x)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'helm-M-x)
