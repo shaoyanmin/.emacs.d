@@ -6,9 +6,7 @@
 
   :config
   (load-theme 'doom-one t)
-
-  ;; Enable flashing mode-line on errors
-  ;; (doom-themes-visual-bell-config)
+  (doom-themes-visual-bell-config)
 
   ;; (add-hook 'find-file-hook 'doom-buffer-mode)
   ;; brighter minibuffer when active
