@@ -153,9 +153,9 @@
 ;; (global-set-key (kbd "C-h d") 'ym-function-at-point)
 
 ;; (global-set-key (kbd "M-x") 'smex)
-;; (global-set-key (kbd "M-x") 'counsel-M-x)
-;; (global-set-key (kbd "C-s") 'swiper-isearch)
-;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-;; (global-set-key (kbd "M-y") 'counsel-yank-pop)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-s") 'swiper-isearch)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "M-y") 'counsel-yank-pop)
 
 ;; (global-set-key (kbd "M-X") 'helm-M-x)

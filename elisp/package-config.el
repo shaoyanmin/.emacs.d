@@ -23,16 +23,15 @@
   (setq ivy-use-virtual-buffers t
         enable-recursive-minibuffers t)
   :bind (:map ivy-minibuffer-map
-              ("TAB" . ivy-alt-done)
-              ("C-n" . ivy-next-line)
-              ("C-o" . ivy-previous-line)
-              ([escape] . minibuffer-keyboard-quit)
-              :map ivy-switch-buffer-map
-              ("C-o" . ivy-previous-line)
-              ("C-k" . ivy-switch-buffer-kill)
-              :map ivy-reverse-i-search-map
-              ("C-o" . ivy-previous-line)
-              ("C-d" . ivy-reverse-i-search-kill))
+         ("TAB" . ivy-alt-done)
+         ("C-n" . ivy-next-line)
+         ("C-o" . ivy-previous-line)
+         :map ivy-switch-buffer-map
+         ("C-o" . ivy-previous-line)
+         ("C-k" . ivy-switch-buffer-kill)
+         :map ivy-reverse-i-search-map
+         ("C-o" . ivy-previous-line)
+         ("C-d" . ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
 
@@ -73,9 +72,34 @@
 
 (use-package ag)
 
+;; (use-package auto-complete
+;;   :config
+;;   (global-auto-complete-mode t)
+;;   (require 'auto-complete-config)
+;;   (setq ac-use-fuzzy t)
+;;   (setq ac-ignore-case nil)
+;;   (define-key ac-completing-map (kbd "M-o") 'ac-previous)
+;;   (set-default 'ac-sources
+;;                '(;;ac-source-semantic-raw
+;;                  ;; ac-source-yasnippet
+;;                  ac-source-dictionary
+;;                  ac-source-abbrev
+;;                  ac-source-words-in-buffer
+;;                  ac-source-words-in-same-mode-buffers
+;;                  ac-source-files-in-current-dir
+;;                  ;; ac-source-filename
+;;                  ))
+;;   )
+
+
 (use-package autopair
   :config
   (autopair-global-mode))
+
+;; (use-package cycbuf
+;;   :config
+;;   (global-set-key (kbd "M-k") 'cycbuf-switch-to-next-buffer)
+;;   (global-set-key (kbd "M-C-k") 'cycbuf-switch-to-previous-buffer))
 
 (use-package key-chord
   :config
@@ -87,10 +111,15 @@
 
 (use-package paredit)
 
+;; (use-package smex)
+
 (use-package textmate)
 
 
 ;; Development
+;; (use-package ac-geiser)
+
+;; (use-package geiser)
 
 (use-package rainbow-delimiters)
 
@@ -152,3 +181,14 @@
   :bind (:map neotree-mode-map
               ("o" . neotree-previous-line))
   )
+
+
+;; Others
+;; (ido-mode t)
+
+
+;; (setq cycbuf-dont-show-regexp  '("^ "
+;;                                  "^\\*.*\\*$"
+;;                                  "^\\*magit.*$"
+;;                                  ".*Dired .*"
+;;                                  "^\\*cycbuf\\*$"))
