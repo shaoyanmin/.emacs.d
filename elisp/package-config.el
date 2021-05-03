@@ -50,12 +50,22 @@
 (use-package ag)
 
 
-(use-package autopair
+(use-package smartparens
   :config
-  (autopair-global-mode))
+  (require 'smartparens-config)
+  (add-hook 'text-mode-hook 'smartparens-mode)
+  (add-hook 'org-mode-hook 'smartparens-mode)
+  (add-hook 'js2-mode-hook 'smartparens-mode)
+  (add-hook 'markdown-mode-hook 'smartparens-mode))
+
 
 (use-package cycbuf
   :config
+  (setq cycbuf-dont-show-regexp  '("^ "
+                                   "^\\*.*\\*$"
+                                   "^\\*magit.*$"
+                                   ".*Dired .*"
+                                   "^\\*cycbuf\\*$"))
   (global-set-key (kbd "M-k") 'cycbuf-switch-to-next-buffer)
   (global-set-key (kbd "M-C-k") 'cycbuf-switch-to-previous-buffer))
 
@@ -67,7 +77,9 @@
 
 (use-package multiple-cursors)
 
-(use-package paredit)
+(use-package paredit
+  :config
+  (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
 
 (use-package smex)
 
@@ -100,18 +112,6 @@
         ("<return>" . newline-and-indent)
         ))
 
-(use-package web-beautify
-  :config
-  (eval-after-load 'js2-mode '(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js))
-  (eval-after-load 'json-mode '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
-  (eval-after-load 'sgml-mode '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
-  (eval-after-load 'web-mode '(define-key web-mode-map (kbd "C-c b") 'web-beautify-html))
-  (eval-after-load 'css-mode '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css)))
-
-(use-package sass-mode
-  :mode ("\\.scss" . css-mode)
-  :config (add-hook 'sass-mode-hook (lambda () (setq comment-start "//"))))
-
 (use-package js2-mode
   :mode ("\\.js" . js2-mode)
   :bind
@@ -137,10 +137,3 @@
 
 ;; Others
 (ido-mode t)
-
-
-(setq cycbuf-dont-show-regexp  '("^ "
-                                 "^\\*.*\\*$"
-                                 "^\\*magit.*$"
-                                 ".*Dired .*"
-                                 "^\\*cycbuf\\*$"))
