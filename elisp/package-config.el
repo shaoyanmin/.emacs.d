@@ -82,6 +82,11 @@
   (add-hook 'scheme-mode-hook 'paredit-mode)
   (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
 
+(use-package paren-face
+  :config
+  (add-hook 'scheme-mode-hook 'paren-face-mode)
+  (add-hook 'emacs-lisp-mode-hook 'paren-face-mode))
+
 (use-package smex)
 
 (use-package textmate)
@@ -120,11 +125,6 @@
         ("M-j" . other-window)
         ("M-<return>" . semicolon-endline)
         ("M-C-<return>" . js2-line-break)))
-
-
-(use-package json-mode
-  :mode ("\\.json" . json-mode)
-  :config (add-hook 'json-mode-hook #'flycheck-mode))
 
 
 (use-package neotree
