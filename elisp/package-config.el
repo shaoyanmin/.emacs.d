@@ -49,13 +49,11 @@
 
 (use-package ag)
 
-
 (use-package smartparens
   :config
   (require 'smartparens-config)
   (add-hook 'text-mode-hook 'smartparens-mode)
   (add-hook 'org-mode-hook 'smartparens-mode)
-  (add-hook 'js2-mode-hook 'smartparens-mode)
   (add-hook 'markdown-mode-hook 'smartparens-mode))
 
 
@@ -75,7 +73,9 @@
 
 (use-package magit)
 
-(use-package multiple-cursors)
+(use-package multiple-cursors
+  :config
+  (setq mc/always-run-for-all t))
 
 (use-package paredit
   :config
@@ -117,15 +117,6 @@
         ("C-M-d" . web-mode-element-child)
         ("<return>" . newline-and-indent)
         ))
-
-(use-package js2-mode
-  :mode ("\\.js" . js2-mode)
-  :bind
-  (:map js2-mode-map
-        ("M-j" . other-window)
-        ("M-<return>" . semicolon-endline)
-        ("M-C-<return>" . js2-line-break)))
-
 
 (use-package neotree
   :config
