@@ -20,3 +20,5 @@ elpa/*
 *BASE*
 transient/
 server/
+.#*
+projectile-*.eld

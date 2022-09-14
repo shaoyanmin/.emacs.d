@@ -79,6 +79,7 @@
 
 (use-package paredit
   :config
+  (add-hook 'scheme-mode-hook 'paredit-mode)
   (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
 
 (use-package smex)
