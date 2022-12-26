@@ -93,8 +93,9 @@
   (setq scheme-program-name (getenv "KAWA_CMD"))
   (add-hook 'scheme-mode-hook
             (lambda ()
-              (define-key scheme-mode-map (kbd "f5") 'scheme-send-last-sexp-split-window)
-              (define-key scheme-mode-map (kbd "f6") 'scheme-send-definition-split-window)
+              (define-key scheme-mode-map (kbd "<f5>") 'scheme-send-last-sexp-split-window)
+              (define-key scheme-mode-map (kbd "<f6>") 'scheme-send-definition-split-window)
+              (define-key scheme-mode-map (kbd "C-c C-t") 'scheme-send-region)
               (define-key scheme-mode-map (kbd "C-c C-r") 'scheme-send-last-sexp-split-window)
               (define-key scheme-mode-map (kbd "C-c C-e") 'scheme-send-definition-split-window))))
 

@@ -40,6 +40,8 @@
   (interactive "f")
   (load-file (expand-file-name (concat file ".el") "~/.emacs.d/elisp/")))
 
+(set-language-environment "UTF-8")
+
 (load-user-file "package-config")
 (load-user-file "style")
 (load-user-file "setting")
