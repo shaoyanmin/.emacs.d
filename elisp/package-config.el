@@ -18,6 +18,7 @@
   (set-face-attribute 'helm-selection nil
                       :background "#51afef"
                       :foreground "black")
+  (global-set-key (kbd "M-X") 'helm-M-x)
 
   :bind
   (:map helm-map
@@ -30,31 +31,43 @@
         ))
 
 
-(use-package magit)
+(use-package magit
+  :config
+  (setq magit-remote-git-executable "/bin/git")
+  (global-set-key (kbd "C-x g") 'magit-status))
 
 (use-package undo-tree
   :config
-  (global-undo-tree-mode t))
+  (global-undo-tree-mode t)
+  (setq undo-tree-auto-save-history t)
+  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+  (global-set-key (kbd "C-u") 'undo-tree-redo)
+  (global-set-key (kbd "M-u") 'undo-tree-undo))
 
 (use-package expand-region
   :config
   (require 'expand-region)
-  (setq shift-select-mode nil))
+  (setq shift-select-mode nil)
+  (global-set-key (kbd "M-c") 'er/expand-region)
+  (global-set-key (kbd "C-M-c") 'er/contract-region))
 
 
 ;; Extensions
 (use-package ace-jump-buffer)
 
-(use-package ace-jump-mode)
+(use-package ace-jump-mode
+  :config
+  (global-set-key (kbd "M-l") 'ace-jump-line-mode)
+  (global-set-key (kbd "C-l") 'ace-jump-word-mode))
 
 (use-package ag)
 
 (use-package smartparens
   :config
   (require 'smartparens-config)
-  (add-hook 'text-mode-hook 'smartparens-mode)
-  (add-hook 'org-mode-hook 'smartparens-mode)
-  (add-hook 'markdown-mode-hook 'smartparens-mode))
+  :hook ((text-mode . smartparens-mode)
+         (org-mode . smartparens-mode)
+         (markdown-mode . smartparens-mode)))
 
 
 (use-package cycbuf
@@ -73,19 +86,25 @@
 
 (use-package magit)
 
-(use-package multiple-cursors
-  :config
-  (setq mc/always-run-for-all t))
+;; (use-package multiple-cursors
+;;   :config
+;;   (require 'multiple-cursors)
+;;   (setq mc/always-run-for-all t)
+;;   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+;;   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+;;   (global-set-key (kbd "C-<mouse-1>") 'mc/add-cursor-on-click))
 
 (use-package paredit
-  :config
-  (add-hook 'scheme-mode-hook 'paredit-mode)
-  (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
+  :bind
+  (:map paredit-mode-map
+        ("M-C-n" . forward-list)
+        )
+  :hook ((scheme-mode . paredit-mode)
+         (emacs-lisp-mode . paredit-mode)))
 
 (use-package paren-face
-  :config
-  (add-hook 'scheme-mode-hook 'paren-face-mode)
-  (add-hook 'emacs-lisp-mode-hook 'paren-face-mode))
+  :hook ((scheme-mode . paren-face-mode)
+         (emacs-lisp-mode . paren-face-mode)))
 
 (use-package scheme
   :config
@@ -99,9 +118,14 @@
               (define-key scheme-mode-map (kbd "C-c C-r") 'scheme-send-last-sexp-split-window)
               (define-key scheme-mode-map (kbd "C-c C-e") 'scheme-send-definition-split-window))))
 
-(use-package smex)
+(use-package smex
+  :config
+  (global-set-key (kbd "M-x") 'smex))
 
-(use-package textmate)
+(use-package textmate
+  :config
+  (global-set-key (kbd "S-<left>") 'textmate-shift-left)
+  (global-set-key (kbd "S-<right>") 'textmate-shift-right))
 
 (use-package rainbow-delimiters)
 
@@ -111,9 +135,9 @@
 
 (use-package web-mode
   :mode ("\\.html" . web-mode) ("\\.ejs" . web-mode) ("\\.vue" . web-mode) ("\\.wxml" . web-mode)
+  :hook emmet-mode
   :config
   (require 'sgml-mode)
-  (add-hook 'web-mode-hook 'emmet-mode)
   (setq web-mode-markup-indent-offset 2)
   :bind
   (:map web-mode-map

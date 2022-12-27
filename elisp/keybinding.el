@@ -1,5 +1,4 @@
 ;;; unset these keys
-
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "<f1>"))
 (global-unset-key (kbd "<f2>"))
@@ -14,25 +13,17 @@
 (global-set-key (kbd "M-o") 'backward-paragraph)
 (global-set-key (kbd "C-o") 'previous-line)
 (global-set-key (kbd "C-M-o") 'backward-list)
-
 (global-set-key (kbd "M-H") 'mark-whole-buffer)
-(global-set-key (kbd "M-c") 'er/expand-region)
-(global-set-key (kbd "C-M-c") 'er/contract-region)
-
-(global-set-key (kbd "M-l") 'ace-jump-line-mode)
-(global-set-key (kbd "C-l") 'ace-jump-word-mode)
-
 
 (global-set-key (kbd "C-x f") 'dired-jump)
 (global-set-key (kbd "C-x b") 'ym-ido-bookmark-jump)
 (global-set-key (kbd "C-x C-b") 'ym-ido-bookmark-jump)
 
+
 ;;; quick edit
 
 (global-set-key "\M-h" 'comment-dwim-line)
 (global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-u") 'undo-tree-redo)
-(global-set-key (kbd "M-u") 'undo-tree-undo)
 
 (global-set-key (kbd "C-.") 'open-previous-line)
 (global-set-key (kbd "C-,") 'open-next-line)
@@ -48,18 +39,10 @@
 (global-set-key (kbd "M-t") 'zap-up-to-char)
 (global-set-key (kbd "C-t") 'ym-go-to-word)
 
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-;; (global-set-key (kbd "C-M-,") 'mc/mark-previous-word-like-this)
-;; (global-set-key (kbd "C-M-.") 'mc/mark-next-word-like-this)
-(global-set-key (kbd "C-<mouse-1>") 'mc/add-cursor-on-click)
-
 (global-set-key (kbd "S-<down>") 'move-text-down)
 (global-set-key (kbd "S-<up>") 'move-text-up)
 (global-set-key (kbd "M-S-<down>") 'move-text-down)
 (global-set-key (kbd "M-S-<up>") 'move-text-up)
-(global-set-key (kbd "S-<left>") 'textmate-shift-left)
-(global-set-key (kbd "S-<right>") 'textmate-shift-right)
 
 
 ;;; switch between buffers and files
@@ -101,9 +84,6 @@
 
 
 ;;; function keys
-
-(global-set-key (kbd "C-x g") 'magit-status)
-
 (global-set-key (kbd "C-x r b") 'ym-ido-bookmark-jump)
 
 
@@ -151,6 +131,3 @@
 
 ;; functions written by myself
 ;; (global-set-key (kbd "C-h d") 'ym-function-at-point)
-
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'helm-M-x)

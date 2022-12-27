@@ -47,6 +47,7 @@
 (load-user-file "setting")
 (load-user-file "editor")
 (load-user-file "keybinding")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -56,7 +57,7 @@
  '(kill-ring-max 5000)
  '(kill-whole-line t)
  '(package-selected-packages
-   '(paren-face neotree json-mode js2-mode web-mode emmet-mode markdown-mode rainbow-delimiters textmate smex paredit multiple-cursors key-chord cycbuf smartparens ag ace-jump-mode ace-jump-buffer expand-region undo-tree magit helm doom-themes use-package)))
+   '(cl-libify paren-face neotree json-mode js2-mode web-mode emmet-mode markdown-mode rainbow-delimiters textmate smex paredit key-chord cycbuf smartparens ag ace-jump-mode ace-jump-buffer expand-region undo-tree magit helm doom-themes use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

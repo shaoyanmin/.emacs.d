@@ -11,6 +11,7 @@
 (show-paren-mode t)
 
 (setq default-indicate-empty-lines t)
+;; (global-display-line-numbers-mode)
 
 (setq uniquify-buffer-name-style 'post-forward
       uniquify-separator ":")
