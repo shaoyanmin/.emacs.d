@@ -279,15 +279,28 @@ If a region is active (a phrase), lookup that phrase."
           (find-file filename))))))
 
 ;; Scheme
+(defun scheme-proc-exist-p ()
+  (and scheme-buffer
+       (get-buffer scheme-buffer)
+       (comint-check-proc scheme-buffer)))
+
+;; (defun run-remote-scheme ()
+;;   (interactive)
+;;   (run-scheme "plink.exe -load dev (cd projects; gsi)"))
+
+(defun scheme-safe-exit ()
+  (interactive)
+  (if (and (scheme-proc-exist-p)
+           (equal (buffer-name) scheme-buffer))
+      (let ((proc (scheme-get-process)))
+        (comint-send-string proc "(exit)\n"))))
 
 ;; bypass the interactive question and start the default interpreter
 (defun scheme-proc ()
   "Return the current Scheme process, starting one if necessary."
-  (unless (and scheme-buffer
-               (get-buffer scheme-buffer)
-               (comint-check-proc scheme-buffer))
+  (unless (scheme-proc-exist-p)
     (save-window-excursion
-      (run-scheme scheme-program-name)))
+      (run-scheme (getenv "SCHEME_CMD"))))
   (or (scheme-get-process)
       (error "No current process. See variable `scheme-buffer'")))
 

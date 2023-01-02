@@ -17,7 +17,7 @@
   (progn
     (message "Microsoft Windows")
     (setq default-directory "~/")
-    (set-frame-font "consolas 11")
+    (set-frame-font "consolas 10")
     ))
  ((string-equal system-type "darwin") ; Mac OS X
   (progn
@@ -42,10 +42,10 @@
 
 (set-language-environment "UTF-8")
 
+(load-user-file "editor")
 (load-user-file "package-config")
 (load-user-file "style")
 (load-user-file "setting")
-(load-user-file "editor")
 (load-user-file "keybinding")
 
 (custom-set-variables

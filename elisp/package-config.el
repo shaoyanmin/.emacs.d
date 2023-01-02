@@ -1,6 +1,6 @@
 (use-package doom-themes
   :init
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabledk
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
 
   :config
@@ -33,7 +33,6 @@
 
 (use-package magit
   :config
-  (setq magit-remote-git-executable "/bin/git")
   (global-set-key (kbd "C-x g") 'magit-status))
 
 (use-package undo-tree
@@ -86,13 +85,14 @@
 
 (use-package magit)
 
-;; (use-package multiple-cursors
-;;   :config
-;;   (require 'multiple-cursors)
-;;   (setq mc/always-run-for-all t)
-;;   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-;;   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-;;   (global-set-key (kbd "C-<mouse-1>") 'mc/add-cursor-on-click))
+(use-package multiple-cursors
+  :no-require t
+  :config
+  ;; (require 'multiple-cursors)
+  (setq mc/always-run-for-all t)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-<mouse-1>") 'mc/add-cursor-on-click))
 
 (use-package paredit
   :bind
@@ -107,15 +107,26 @@
          (emacs-lisp-mode . paren-face-mode)))
 
 (use-package scheme
-  :config
+  :init
   (require 'cmuscheme)
-  (setq scheme-program-name (getenv "KAWA_CMD"))
+  (autoload 'run-scheme "cmuscheme" "Run an inferior Scheme" t)
+  :config
+  (add-to-list 'auto-mode-alist '("\\.sld\\'" . scheme-mode))
+  (add-hook 'kill-buffer-hook
+            (lambda ()
+              (scheme-safe-exit)))
+  (add-hook 'kill-emacs-hook
+            (lambda ()
+              (if (scheme-proc-exist-p)
+                  (progn (switch-to-buffer scheme-buffer)
+                         (scheme-safe-exit)))))
   (add-hook 'scheme-mode-hook
             (lambda ()
               (define-key scheme-mode-map (kbd "<f5>") 'scheme-send-last-sexp-split-window)
               (define-key scheme-mode-map (kbd "<f6>") 'scheme-send-definition-split-window)
               (define-key scheme-mode-map (kbd "C-c C-t") 'scheme-send-region)
               (define-key scheme-mode-map (kbd "C-c C-r") 'scheme-send-last-sexp-split-window)
+              (define-key scheme-mode-map (kbd "C-x C-e") 'scheme-send-definition-split-window)
               (define-key scheme-mode-map (kbd "C-c C-e") 'scheme-send-definition-split-window))))
 
 (use-package smex
