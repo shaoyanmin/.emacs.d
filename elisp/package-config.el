@@ -110,6 +110,7 @@
   :init
   (require 'cmuscheme)
   (autoload 'run-scheme "cmuscheme" "Run an inferior Scheme" t)
+  (setq scheme-program-name (getenv "SCHEME_CMD"))
   :config
   (add-to-list 'auto-mode-alist '("\\.sld\\'" . scheme-mode))
   (add-hook 'kill-buffer-hook

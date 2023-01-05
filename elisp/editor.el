@@ -307,6 +307,7 @@ If a region is active (a phrase), lookup that phrase."
 (defun switch-other-window-to-buffer (name)
     (other-window 1)
     (switch-to-buffer name)
+    (end-of-buffer)
     (other-window 1))
 
 (defun scheme-split-window ()
@@ -316,8 +317,8 @@ If a region is active (a phrase), lookup that phrase."
    ;;  ;; (split-window-horizontally (floor (* 0.5 (window-width))))
    ;;  (switch-other-window-to-buffer "*scheme*"))
    ((not (member "*scheme*"
-               (mapcar (lambda (w) (buffer-name (window-buffer w)))
-                       (window-list))))
+                 (mapcar (lambda (w) (buffer-name (window-buffer w)))
+                         (window-list))))
     (split-window-vertically (floor (* 0.68 (window-height))))
     (switch-other-window-to-buffer "*scheme*"))))
 
