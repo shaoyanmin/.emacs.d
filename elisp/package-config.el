@@ -108,9 +108,17 @@
 
 (use-package scheme
   :init
-  (require 'cmuscheme)
-  (autoload 'run-scheme "cmuscheme" "Run an inferior Scheme" t)
+  (load-library "cmuscheme")
   (setq scheme-program-name (getenv "SCHEME_CMD"))
+  (setq comint-prompt-regexp "^([^>\n]*>+ *)|(#|kawa:[0-9]+|# )")
+  :bind
+  (:map scheme-mode-map
+        ("M-o" . backward-paragraph)
+        :map inferior-scheme-mode-map
+        ("C-c C-e" . scheme-send-last-sexp-split-window)
+        ("C-x C-e" . scheme-send-last-sexp-split-window)
+        ("C-c C-r" . scheme-send-definition-split-window)
+        )
   :config
   (add-to-list 'auto-mode-alist '("\\.sld\\'" . scheme-mode))
   (add-hook 'kill-buffer-hook
@@ -126,9 +134,9 @@
               (define-key scheme-mode-map (kbd "<f5>") 'scheme-send-last-sexp-split-window)
               (define-key scheme-mode-map (kbd "<f6>") 'scheme-send-definition-split-window)
               (define-key scheme-mode-map (kbd "C-c C-t") 'scheme-send-region)
-              (define-key scheme-mode-map (kbd "C-c C-r") 'scheme-send-last-sexp-split-window)
-              (define-key scheme-mode-map (kbd "C-x C-e") 'scheme-send-definition-split-window)
-              (define-key scheme-mode-map (kbd "C-c C-e") 'scheme-send-definition-split-window))))
+              (define-key scheme-mode-map (kbd "C-c C-r") 'scheme-send-definition-split-window)
+              (define-key scheme-mode-map (kbd "C-x C-e") 'scheme-send-last-sexp-split-window)
+              (define-key scheme-mode-map (kbd "C-c C-e") 'scheme-send-last-sexp-split-window))))
 
 (use-package smex
   :config
