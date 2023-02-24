@@ -265,19 +265,6 @@ If a region is active (a phrase), lookup that phrase."
       (error (message "Word start with \"%s\" Not found." (string char))))))
 
 
-(require 'bookmark)
-(defun ym-ido-bookmark-jump ()
-  "Jump to bookmark by ido. Open ido again if the bookmark is a directory."
-  (interactive)
-  (let* ((name (ido-completing-read "Jump to bookmark: " (bookmark-all-names) nil t))
-         (bmk (bookmark-get-bookmark name)))
-    (when bmk
-      (let ((filename (bookmark-get-filename bmk)))
-        (if (file-directory-p filename)
-            (progn (ido-find-file-in-dir filename)
-                   (setq ido-current-directory filename))
-          (find-file filename))))))
-
 ;; Scheme
 (defun scheme-proc-exist-p ()
   (and scheme-buffer

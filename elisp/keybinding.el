@@ -16,8 +16,8 @@
 (global-set-key (kbd "M-H") 'mark-whole-buffer)
 
 (global-set-key (kbd "C-x f") 'dired-jump)
-(global-set-key (kbd "C-x b") 'ym-ido-bookmark-jump)
-(global-set-key (kbd "C-x C-b") 'ym-ido-bookmark-jump)
+(global-set-key (kbd "C-x b") 'helm-bookmarks)
+(global-set-key (kbd "C-x C-b") 'helm-bookmarks)
 
 
 ;;; quick edit

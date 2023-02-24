@@ -4,6 +4,7 @@ bookmarks
 session*
 smex-items
 temp/*
+!temp/.gitkeep
 ac-*.data
 *.dat
 *~
