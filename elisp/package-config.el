@@ -24,8 +24,11 @@
   (:map helm-map
         ("M-i" . helm-keyboard-quit)
         ("M-n" . helm-next-line)
+        ("M-k" . helm-next-line)
         ("M-o" . helm-previous-line)
         ("M-p" . helm-previous-line)
+        ("M-C-k" . helm-previous-line)
+        ("M-K" . helm-previous-line)
         ("C-p" . helm-previous-line)
         ("C-o" . helm-previous-line)
         ))
@@ -69,15 +72,15 @@
          (markdown-mode . smartparens-mode)))
 
 
-(use-package cycbuf
-  :config
-  (setq cycbuf-dont-show-regexp  '("^ "
-                                   "^\\*.*\\*$"
-                                   "^\\*magit.*$"
-                                   ".*Dired .*"
-                                   "^\\*cycbuf\\*$"))
-  (global-set-key (kbd "M-k") 'cycbuf-switch-to-next-buffer)
-  (global-set-key (kbd "M-C-k") 'cycbuf-switch-to-previous-buffer))
+;; (use-package cycbuf
+;;   :config
+;;   (setq cycbuf-dont-show-regexp  '("^ "
+;;                                    "^\\*.*\\*$"
+;;                                    "^\\*magit.*$"
+;;                                    ".*Dired .*"
+;;                                    "^\\*cycbuf\\*$"))
+;;   (global-set-key (kbd "M-k") 'cycbuf-switch-to-next-buffer)
+;;   (global-set-key (kbd "M-C-k") 'cycbuf-switch-to-previous-buffer))
 
 (use-package key-chord
   :config

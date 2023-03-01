@@ -50,9 +50,7 @@
 (global-set-key (kbd "M-j") 'other-window)
 (global-set-key (kbd "M-C-j") 'back-window)
 (global-set-key (kbd "M-i") 'helm-mini)
-(global-set-key (kbd "M-k") 'cycbuf-switch-to-next-buffer)
-(global-set-key (kbd "C-M-k") 'cycbuf-switch-to-previous-buffer)
-(global-set-key (kbd "M-K") 'ace-jump-buffer)
+(global-set-key (kbd "M-k") 'helm-buffers-list)
 
 
 ;;; search files by silver searcher (alternate tool of grep and ack)
