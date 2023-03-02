@@ -71,17 +71,6 @@
          (org-mode . smartparens-mode)
          (markdown-mode . smartparens-mode)))
 
-
-;; (use-package cycbuf
-;;   :config
-;;   (setq cycbuf-dont-show-regexp  '("^ "
-;;                                    "^\\*.*\\*$"
-;;                                    "^\\*magit.*$"
-;;                                    ".*Dired .*"
-;;                                    "^\\*cycbuf\\*$"))
-;;   (global-set-key (kbd "M-k") 'cycbuf-switch-to-next-buffer)
-;;   (global-set-key (kbd "M-C-k") 'cycbuf-switch-to-previous-buffer))
-
 (use-package key-chord
   :config
   (key-chord-mode t))

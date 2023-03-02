@@ -125,7 +125,3 @@
                                       (progn (newline) (point))))
                                    (yank))
                                  (next-line)))
-
-
-;; functions written by myself
-;; (global-set-key (kbd "C-h d") 'ym-function-at-point)
