@@ -36,3 +36,10 @@
 (toggle-truncate-lines t)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
+;; TRAMP
+(setq vc-ignore-dir-regexp
+      (format "\\(%s\\)\\|\\(%s\\)"
+              vc-ignore-dir-regexp
+              tramp-file-name-regexp))
