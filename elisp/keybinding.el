@@ -28,6 +28,8 @@
 (global-set-key (kbd "C-.") 'open-previous-line)
 (global-set-key (kbd "C-,") 'open-next-line)
 
+(global-set-key (kbd "C-!") 'sudo-edit-current-file)
+
 (global-set-key (kbd "M-U") 'upcase-word)
 (global-set-key (kbd "M-D") 'downcase-word)
 (global-set-key (kbd "M-C") 'capitalize-word)

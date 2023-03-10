@@ -318,3 +318,35 @@ If a region is active (a phrase), lookup that phrase."
   (interactive)
   (scheme-split-window)
   (scheme-send-definition))
+
+;; tramp helpers
+(defun sudo-edit-current-file ()
+  (interactive)
+  (let ((my-file-name) ; fill this with the file to open
+        (position))    ; if the file is already open save position
+    (if (equal major-mode 'dired-mode) ; test if we are in dired-mode
+        (progn
+          (setq my-file-name (dired-get-file-for-visit))
+          (find-alternate-file (prepare-tramp-sudo-string my-file-name)))
+      (setq my-file-name (buffer-file-name); hopefully anything else is an already opened file
+            position (point))
+      (find-alternate-file (prepare-tramp-sudo-string my-file-name))
+      (goto-char position))))
+
+(defun prepare-tramp-sudo-string (tempfile)
+  (if (file-remote-p tempfile)
+      (letrec ((vec  (tramp-dissect-file-name tempfile))
+               (user (tramp-file-name-user vec))
+               (host (tramp-file-name-host vec)))
+        (tramp-make-tramp-file-name
+         "sudo"
+         ""
+         (tramp-file-name-domain vec)
+         (tramp-file-name-host vec)
+         (tramp-file-name-port vec)
+         (tramp-file-name-localname vec)
+         ;; Windows Only
+         (if user
+             (format "plink:%s@%s|" user host)
+           (format "plink:%s|" host))))
+    (concat "/sudo:root@localhost:" tempfile)))
