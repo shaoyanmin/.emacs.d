@@ -15,10 +15,11 @@
 
 (use-package helm
   :config
+  (require 'helm)
+  (helm-mode 1)
   (set-face-attribute 'helm-selection nil
                       :background "#51afef"
                       :foreground "black")
-  (global-set-key (kbd "M-X") 'helm-M-x)
 
   :bind
   (:map helm-map
@@ -113,6 +114,7 @@
         )
   :config
   (add-to-list 'auto-mode-alist '("\\.sld\\'" . scheme-mode))
+  (add-to-list 'auto-mode-alist '("\\.stub\\'" . scheme-mode))
   (add-hook 'kill-buffer-hook
             (lambda ()
               (scheme-safe-exit)))
@@ -174,11 +176,15 @@
               ("o" . neotree-previous-line))
   )
 
-;; (use-package eglot
-;;   :config
-;;   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
-;;   (add-hook 'c-mode-hook 'eglot-ensure)
-;;   (add-hook 'c++-mode-hook 'eglot-ensure))
+(use-package eglot
+  :config
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+  (add-hook 'c-mode-hook 'eglot-ensure)
+  (add-hook 'c++-mode-hook 'eglot-ensure))
 
 ;; Others
 (ido-mode t)
+
+(use-package delsel
+  :ensure nil
+  :init (delete-selection-mode 1))

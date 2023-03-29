@@ -30,7 +30,8 @@
 (setq fill-column 72)
 
 (fset 'yes-or-no-p 'y-or-n-p)
-(delete-selection-mode 1)
+
+;; (delete-selection-mode t)
 
 
 (toggle-truncate-lines t)
@@ -43,3 +44,6 @@
       (format "\\(%s\\)\\|\\(%s\\)"
               vc-ignore-dir-regexp
               tramp-file-name-regexp))
+
+(setq c-default-style "linux"
+      c-basic-offset 4)

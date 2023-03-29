@@ -16,6 +16,8 @@
 (global-set-key (kbd "M-H") 'mark-whole-buffer)
 
 (global-set-key (kbd "C-x f") 'dired-jump)
+(global-set-key (kbd "M-X") 'helm-M-x)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x b") 'helm-bookmarks)
 (global-set-key (kbd "C-x C-b") 'helm-bookmarks)
 
@@ -84,8 +86,6 @@
 
 
 ;;; function keys
-(global-set-key (kbd "C-x r b") 'ym-ido-bookmark-jump)
-
 
 ;; (global-set-key [f9] 'helm-mini)
 ;; (global-set-key [f10] 'lookup-word-definition)
