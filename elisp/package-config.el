@@ -188,3 +188,7 @@
 (use-package delsel
   :ensure nil
   :init (delete-selection-mode 1))
+
+(use-package clang-format
+  :bind (:map c-mode-map
+              ("C-M-l" . clang-format-buffer)))
