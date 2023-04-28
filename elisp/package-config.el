@@ -190,5 +190,19 @@
   :init (delete-selection-mode 1))
 
 (use-package clang-format
+  :ensure t
   :bind (:map c-mode-map
               ("C-M-l" . clang-format-buffer)))
+
+(use-package helm-projectile)
+
+(use-package projectile
+  :ensure t
+  :init
+  (projectile-mode +1)
+  :config
+  (setq projectile-completion-system 'helm)
+  (helm-projectile-on)
+  :bind (:map projectile-mode-map
+              ("C-P" . projectile-command-map)
+              ))
