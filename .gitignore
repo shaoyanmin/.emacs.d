@@ -24,3 +24,5 @@ server/
 .#*
 projectile-*.eld
 eln-cache/*
+tree-sitter/*
+places

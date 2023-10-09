@@ -1,5 +1,5 @@
 (scroll-bar-mode 0)
-(menu-bar-mode 1)
+(menu-bar-mode -1)
 (tool-bar-mode -1)
 
 ;; Don't use messages that you don't read

@@ -185,9 +185,9 @@
 ;; Others
 (ido-mode t)
 
-(use-package delsel
-  :ensure nil
-  :init (delete-selection-mode 1))
+;; (use-package delsel
+;;   :ensure nil
+;;   :init (delete-selection-mode 1))
 
 (use-package clang-format
   :ensure t
@@ -205,4 +205,14 @@
   (helm-projectile-on)
   :bind (:map projectile-mode-map
               ("C-P" . projectile-command-map)
+              ("C-P s" . projectile-grep)
               ))
+
+(use-package jinja2-mode
+  :mode ("\\.sls" . jinja2-mode))
+
+(use-package plantuml-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+  (setq plantuml-jar-path "~/opt/plantuml/plantuml.jar")
+  (setq plantuml-default-exec-mode 'jar))

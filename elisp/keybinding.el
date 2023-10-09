@@ -3,6 +3,7 @@
 (global-unset-key (kbd "<f1>"))
 (global-unset-key (kbd "<f2>"))
 (global-set-key (kbd "<f8>") 'neotree-toggle)
+(global-set-key (kbd "<f9>") 'neotree-find)
 (global-unset-key (kbd "C-<down-mouse-1>"))
 
 
