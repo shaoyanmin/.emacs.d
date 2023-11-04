@@ -78,7 +78,7 @@
 
     ;; Run this whenever you need to get the latest version of TS modules
     ;; (mapc #'treesit-install-language-grammar
-    ;; (mapcar #'car treesit-language-source-alist))
+          ;; (mapcar #'car treesit-language-source-alist))
 
     (setq major-mode-remap-alist
           '((yaml-mode . yaml-ts-mode)
@@ -98,6 +98,6 @@
     (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-ts-mode))
     (add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode))
     (add-to-list 'auto-mode-alist '("\\.sh\\'" . bash-ts-mode))
-    (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharpt-ts-mode))
+    (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-ts-mode))
 
     (message "Apply settings on Linux"))))
