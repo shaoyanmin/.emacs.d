@@ -8,6 +8,17 @@
 (setq custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
 
+;; auto save and resotre desktop sessions
+(setq desktop-dirname             "~/.emacs.d/temp/desktop/"
+      desktop-base-file-name      "emacs.desktop"
+      desktop-base-lock-name      "lock"
+      desktop-path                (list desktop-dirname)
+      desktop-save                t
+      desktop-files-not-to-save   "^$" ;reload tramp paths
+      desktop-load-locked-desktop nil
+      desktop-auto-save-timeout   30)
+(desktop-save-mode 1)
+
 ;; dired
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
@@ -70,7 +81,7 @@
             (make "https://github.com/alemuller/tree-sitter-make")
             (markdown "https://github.com/ikatyang/tree-sitter-markdown")
             (python "https://github.com/tree-sitter/tree-sitter-python")
-            (csharp "https://github.com/tree-sitter/tree-sitter-c-sharp")
+            ;; (csharp "https://github.com/tree-sitter/tree-sitter-c-sharp")
             (toml "https://github.com/tree-sitter/tree-sitter-toml")
             (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
             (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
@@ -85,7 +96,7 @@
             (bash-mode . bash-ts-mode)
             (js2-mode . js-ts-mode)
             (js-mode . js-ts-mode)
-            (csharp-mode . csharp-ts-mode)
+            ;; (csharp-mode . csharp-ts-mode)
             (typescript-mode . typescript-ts-mode)
             (json-mode . json-ts-mode)
             (css-mode . css-ts-mode)
@@ -98,6 +109,6 @@
     (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-ts-mode))
     (add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode))
     (add-to-list 'auto-mode-alist '("\\.sh\\'" . bash-ts-mode))
-    (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-ts-mode))
+    ;; (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-ts-mode))
 
     (message "Apply settings on Linux"))))
