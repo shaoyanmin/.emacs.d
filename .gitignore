@@ -1,3 +1,4 @@
+custom-vars.el
 auto-save-list/*
 bookmarks
 .chicken-scheme-symbols-dump.el
