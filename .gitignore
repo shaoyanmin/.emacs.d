@@ -5,6 +5,7 @@ session*
 smex-items
 temp/*
 !temp/.gitkeep
+!temp/desktop/.gitkeep
 ac-*.data
 *.dat
 *~
