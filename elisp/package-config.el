@@ -4,7 +4,8 @@
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
 
   :config
-  (load-theme 'doom-one t)
+  (load-theme 'doom-solarized-dark-high-contrast t)
+  ;; (load-theme 'doom-one t)
   (doom-themes-visual-bell-config)
 
   ;; (add-hook 'find-file-hook 'doom-buffer-mode)
@@ -20,7 +21,7 @@
   (set-face-attribute 'helm-selection nil
                       :background "#51afef"
                       :foreground "black")
-
+  ;; (setq helm-ff-allow-non-existing-file-at-point nil)
   :bind
   (:map helm-map
         ("M-i" . helm-keyboard-quit)
