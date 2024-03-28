@@ -4,6 +4,7 @@
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
 
   :config
+  ;; (load-theme 'doom-solarized-dark t)
   (load-theme 'doom-solarized-dark-high-contrast t)
   ;; (load-theme 'doom-one t)
   (doom-themes-visual-bell-config)
@@ -76,8 +77,6 @@
 (use-package key-chord
   :config
   (key-chord-mode t))
-
-(use-package magit)
 
 (use-package multiple-cursors
   :no-require t
@@ -195,8 +194,6 @@
   :bind (:map c-mode-map
               ("C-M-l" . clang-format-buffer)))
 
-(use-package helm-projectile)
-
 (use-package projectile
   :ensure t
   :init
@@ -208,6 +205,8 @@
               ("C-P" . projectile-command-map)
               ("C-P s" . projectile-grep)
               ))
+
+(use-package helm-projectile)
 
 (use-package jinja2-mode
   :mode ("\\.sls" . jinja2-mode))

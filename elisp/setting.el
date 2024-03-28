@@ -23,6 +23,7 @@
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
 (setq dired-listing-switches "-alh")
+(setq dired-dwim-target t)
 
 ;; useful in ido-mode
 (setq enable-recursive-minibuffers t)
@@ -67,7 +68,7 @@
  ((string-equal system-type "gnu/linux") ; linux
   (progn
     ;; Shell Env
-    (setq shell-command-switch "-ic")
+    ;; (setq shell-command-switch "-ic")
     ;; Tree-Sitter
     (setq treesit-language-source-alist
           '((bash "https://github.com/tree-sitter/tree-sitter-bash")

@@ -30,7 +30,8 @@
     (setq mac-command-modifier 'control)))
  ((string-equal system-type "gnu/linux") ; linux
   (progn
-    (set-frame-font "Source Code Pro 10")
+    (set-frame-font "Source Code Pro 11")
+    (add-to-list 'default-frame-alist '(font . "Source Code Pro 11"))
     (message "Linux"))))
 
 
