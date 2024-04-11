@@ -8,17 +8,6 @@
 (setq custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
 
-;; auto save and resotre desktop sessions
-(setq desktop-dirname             "~/.emacs.d/temp/desktop/"
-            desktop-base-file-name      "emacs.desktop"
-            desktop-base-lock-name      "lock"
-            desktop-path                (list desktop-dirname)
-            desktop-save                t
-            desktop-files-not-to-save   "^$" ;reload tramp paths
-            desktop-load-locked-desktop nil
-            desktop-auto-save-timeout   30)
-(desktop-save-mode 1)
-
 ;; dired
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)

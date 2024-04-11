@@ -23,6 +23,7 @@
                       :background "#51afef"
                       :foreground "black")
   ;; (setq helm-ff-allow-non-existing-file-at-point nil)
+  (setq helm-move-to-line-cycle-in-source nil)
   :bind
   (:map helm-map
         ("M-i" . helm-keyboard-quit)
