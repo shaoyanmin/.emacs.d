@@ -5,8 +5,9 @@
 
   :config
   ;; (load-theme 'doom-solarized-dark t)
-  (load-theme 'doom-solarized-dark-high-contrast t)
-  ;; (load-theme 'doom-one t)
+  ;; (load-theme 'doom-solarized-dark-high-contrast t)
+  ;; (load-theme 'doom-snazzy t)
+  (load-theme 'doom-tokyo-night t)
   (doom-themes-visual-bell-config)
 
   ;; (add-hook 'find-file-hook 'doom-buffer-mode)
