@@ -49,3 +49,5 @@
      (set-frame-font "Source Code Pro 11")
      (add-to-list 'default-frame-alist '(font . "Source Code Pro 11"))
      (message "Linux")))))
+
+(set-frame-font "Source Code Pro 12" nil t)

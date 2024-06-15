@@ -15,6 +15,14 @@
   ;; (require 'doom-neotree)
   )
 
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode)
+  :config
+  ;; Reference: https://seagle0128.github.io/doom-modeline/
+  (setq doom-modeline-project-detection 'auto)
+  (setq doom-modeline-buffer-file-name-style 'relative-from-project))
+
 
 (use-package helm
   :config
