@@ -1,3 +1,9 @@
+(use-package nerd-icons
+  :config
+   ;; Use M-x nerd-icons-install-fonts to install Symbols Nerd Fonts Mono for you
+  (require 'nerd-icons)
+  )
+
 (use-package doom-themes
   :init
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabledk
