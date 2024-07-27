@@ -8,8 +8,6 @@
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
 
   :config
-  ;; (load-theme 'doom-solarized-dark t)
-  ;; (load-theme 'doom-solarized-dark-high-contrast t)
   ;; (load-theme 'doom-snazzy t)
   (load-theme 'doom-tokyo-night t)
   (doom-themes-visual-bell-config)
@@ -190,11 +188,11 @@
               ("o" . neotree-previous-line))
   )
 
-(use-package eglot
-  :config
-  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
-  (add-hook 'c-mode-hook 'eglot-ensure)
-  (add-hook 'c++-mode-hook 'eglot-ensure))
+;; (use-package eglot
+;;   :config
+;;   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+;;   (add-hook 'c-mode-hook 'eglot-ensure)
+;;   (add-hook 'c++-mode-hook 'eglot-ensure))
 
 ;; Others
 (ido-mode t)
@@ -203,10 +201,10 @@
 ;;   :ensure nil
 ;;   :init (delete-selection-mode 1))
 
-(use-package clang-format
-  :ensure t
-  :bind (:map c-mode-map
-              ("C-M-l" . clang-format-buffer)))
+;; (use-package clang-format
+;;   :ensure t
+;;   :bind (:map c-mode-map
+;;               ("C-M-l" . clang-format-buffer)))
 
 (use-package projectile
   :ensure t
@@ -225,8 +223,8 @@
 (use-package jinja2-mode
   :mode ("\\.sls" . jinja2-mode))
 
-(use-package plantuml-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-  (setq plantuml-jar-path "~/opt/plantuml/plantuml.jar")
-  (setq plantuml-default-exec-mode 'jar))
+;; (use-package plantuml-mode
+;;   :config
+;;   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+;;   (setq plantuml-jar-path "~/opt/plantuml/plantuml.jar")
+;;   (setq plantuml-default-exec-mode 'jar))

@@ -42,12 +42,10 @@
     (setq exec-path (append exec-path '("/usr/local/bin")))
     ;; (set-default-font "Monaco 13")
     (setq mac-command-modifier 'control)
-    (enable-desktop-auto-save))
+    (enable-desktop-auto-save)))
 
-  ((string-equal system-type "gnu/linux") ; linux
+ ((string-equal system-type "gnu/linux") ; linux
    (progn
-     (set-frame-font "Source Code Pro 11")
-     (add-to-list 'default-frame-alist '(font . "Source Code Pro 11"))
-     (message "Linux")))))
-
-(set-frame-font "Source Code Pro 12" nil t)
+     (set-frame-font "Source Code Pro 12")
+     (add-to-list 'default-frame-alist '(font . "Source Code Pro 12"))
+     (message "Linux"))))
