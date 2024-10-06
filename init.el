@@ -1,3 +1,11 @@
+(defun load-user-file (file)
+  (interactive "f")
+  (load-file (expand-file-name (concat file ".el") "~/.emacs.d/elisp/")))
+
+(add-to-list 'load-path "~/.emacs.d/elisp/")
+
+(load-user-file "setting")
+
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
@@ -11,17 +19,12 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-(add-to-list 'load-path "~/.emacs.d/elisp/")
-(defun load-user-file (file)
-  (interactive "f")
-  (load-file (expand-file-name (concat file ".el") "~/.emacs.d/elisp/")))
 
 (set-language-environment "UTF-8")
 
 (load-user-file "editor")
 (load-user-file "package-config")
 (load-user-file "style")
-(load-user-file "setting")
 (load-user-file "keybinding")
 
 (cond

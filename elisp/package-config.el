@@ -8,13 +8,8 @@
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
 
   :config
-  ;; (load-theme 'doom-snazzy t)
   (load-theme 'doom-tokyo-night t)
   (doom-themes-visual-bell-config)
-
-  ;; (add-hook 'find-file-hook 'doom-buffer-mode)
-  ;; (add-hook 'minibuffer-setup-hook 'doom-brighten-minibuffer)
-  ;; (require 'doom-neotree)
   )
 
 (use-package doom-modeline
@@ -25,29 +20,35 @@
   (setq doom-modeline-project-detection 'auto)
   (setq doom-modeline-buffer-file-name-style 'relative-from-project))
 
-
-(use-package helm
+(use-package ivy
+  :diminish (ivy-mode . "")
+  :init (ivy-mode 1) ; globally at startup
   :config
-  (require 'helm)
-  (helm-mode 1)
-  (set-face-attribute 'helm-selection nil
-                      :background "#51afef"
-                      :foreground "black")
-  ;; (setq helm-ff-allow-non-existing-file-at-point nil)
-  (setq helm-move-to-line-cycle-in-source nil)
-  :bind
-  (:map helm-map
-        ("M-i" . helm-keyboard-quit)
-        ("M-n" . helm-next-line)
-        ("M-k" . helm-next-line)
-        ("M-o" . helm-previous-line)
-        ("M-p" . helm-previous-line)
-        ("M-C-k" . helm-previous-line)
-        ("M-K" . helm-previous-line)
-        ("C-p" . helm-previous-line)
-        ("C-o" . helm-previous-line)
-        ))
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-height 20)
+  (setq ivy-count-format "%d/%d ")
+  ;; :bind (:map ivy-minibuffer-map
+  ;;             ("C-p" . ivy-previous-line))
+  )
 
+(use-package counsel
+  :bind* ; load when pressed
+  (("M-x"     . counsel-M-x)
+   ("C-s"     . swiper)
+   ("C-x C-f" . counsel-find-file)
+   ;; ("C-c g"   . counsel-git)      ; search for files in git repo
+   ;; ("M-c j"   . counsel-git-grep) ; search for regexp in git repo
+   ("M-s M-s"   . counsel-ag)       ; Use ag for regexp
+   ("M-i"     . counsel-buffer-or-recentf)
+   ("M-k"     . ivy-switch-buffer)
+   ;; ("C-x l"   . counsel-locate)
+   ("C-x C-f" . counsel-find-file)
+   ;; ("<f1> f"  . counsel-describe-function)
+   ;; ("<f1> v"  . counsel-describe-variable)
+   ;; ("<f1> l"  . counsel-find-library)
+   ;; ("<f2> i"  . counsel-info-lookup-symbol)
+   ;; ("<f2> u"  . counsel-unicode-char)
+   ("C-c C-r" . ivy-resume)))
 
 (use-package magit
   :config
@@ -144,10 +145,6 @@
               (define-key scheme-mode-map (kbd "C-x C-e") 'scheme-send-last-sexp-split-window)
               (define-key scheme-mode-map (kbd "C-c C-e") 'scheme-send-last-sexp-split-window))))
 
-(use-package smex
-  :config
-  (global-set-key (kbd "M-x") 'smex))
-
 (use-package textmate
   :config
   (global-set-key (kbd "S-<left>") 'textmate-shift-left)
@@ -155,30 +152,28 @@
 
 (use-package rainbow-delimiters)
 
-(use-package markdown-mode)
+;; (use-package emmet-mode)
 
-(use-package emmet-mode)
-
-(use-package web-mode
-  :mode ("\\.html" . web-mode) ("\\.ejs" . web-mode) ("\\.vue" . web-mode) ("\\.wxml" . web-mode)
-  :hook emmet-mode
-  :config
-  (require 'sgml-mode)
-  (setq web-mode-markup-indent-offset 2)
-  :bind
-  (:map web-mode-map
-        ("C-M-f" . web-mode-tag-next)
-        ("C-M-b" . web-mode-tag-previous)
-        ("C-M-e" . web-mode-element-end)
-        ("C-M-a" . web-mode-element-beginning)
-        ("C-M-k" . web-mode-element-kill)
-        ("C-M-n" . sgml-skip-tag-forward)
-        ("C-M-p" . sgml-skip-tag-backward)
-        ("C-M-o" . sgml-skip-tag-backward)
-        ("C-M-u" . web-mode-element-parent)
-        ("C-M-d" . web-mode-element-child)
-        ("<return>" . newline-and-indent)
-        ))
+;; (use-package web-mode
+;;   :mode ("\\.html" . web-mode) ("\\.ejs" . web-mode) ("\\.vue" . web-mode) ("\\.wxml" . web-mode)
+;;   :hook emmet-mode
+;;   :config
+;;   (require 'sgml-mode)
+;;   (setq web-mode-markup-indent-offset 2)
+;;   :bind
+;;   (:map web-mode-map
+;;         ("C-M-f" . web-mode-tag-next)
+;;         ("C-M-b" . web-mode-tag-previous)
+;;         ("C-M-e" . web-mode-element-end)
+;;         ("C-M-a" . web-mode-element-beginning)
+;;         ("C-M-k" . web-mode-element-kill)
+;;         ("C-M-n" . sgml-skip-tag-forward)
+;;         ("C-M-p" . sgml-skip-tag-backward)
+;;         ("C-M-o" . sgml-skip-tag-backward)
+;;         ("C-M-u" . web-mode-element-parent)
+;;         ("C-M-d" . web-mode-element-child)
+;;         ("<return>" . newline-and-indent)
+;;         ))
 
 (use-package neotree
   :config
@@ -194,9 +189,6 @@
 ;;   (add-hook 'c-mode-hook 'eglot-ensure)
 ;;   (add-hook 'c++-mode-hook 'eglot-ensure))
 
-;; Others
-(ido-mode t)
-
 ;; (use-package delsel
 ;;   :ensure nil
 ;;   :init (delete-selection-mode 1))
@@ -211,17 +203,18 @@
   :init
   (projectile-mode +1)
   :config
-  (setq projectile-completion-system 'helm)
-  (helm-projectile-on)
+  (setq projectile-completion-system 'ivy)
   :bind (:map projectile-mode-map
-              ("C-P" . projectile-command-map)
-              ("C-P s" . projectile-grep)
-              ))
+              ("s-p" . projectile-command-map)
+              ("C-c p" . projectile-command-map)))
 
-(use-package helm-projectile)
+;; (use-package helm-projectile)
 
-(use-package jinja2-mode
-  :mode ("\\.sls" . jinja2-mode))
+;; (use-package jinja2-mode
+;;   :mode ("\\.sls" . jinja2-mode))
+
+(use-package salt-mode
+  :mode ("\\.sls" . salt-mode))
 
 ;; (use-package plantuml-mode
 ;;   :config

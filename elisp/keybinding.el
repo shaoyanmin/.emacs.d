@@ -3,7 +3,7 @@
 (global-unset-key (kbd "<f1>"))
 (global-unset-key (kbd "<f2>"))
 (global-set-key (kbd "<f1>") 'save-buffer)
-(global-set-key (kbd "<f2>") 'helm-bookmarks)
+;; (global-set-key (kbd "<f2>") 'helm-bookmarks)
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 (global-set-key (kbd "<f9>") 'neotree-find)
 (global-unset-key (kbd "C-<down-mouse-1>"))
@@ -19,10 +19,10 @@
 (global-set-key (kbd "M-H") 'mark-whole-buffer)
 
 (global-set-key (kbd "C-x f") 'dired-jump)
-(global-set-key (kbd "M-X") 'helm-M-x)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x b") 'helm-bookmarks)
-(global-set-key (kbd "C-x C-b") 'helm-bookmarks)
+;; (global-set-key (kbd "M-X") 'helm-M-x)
+;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
+;; (global-set-key (kbd "C-x b") 'helm-bookmarks)
+;; (global-set-key (kbd "C-x C-b") 'helm-bookmarks)
 
 
 ;;; quick edit
@@ -56,8 +56,8 @@
 
 (global-set-key (kbd "M-j") 'other-window)
 (global-set-key (kbd "M-C-j") 'back-window)
-(global-set-key (kbd "M-i") 'helm-mini)
-(global-set-key (kbd "M-k") 'helm-buffers-list)
+;; (global-set-key (kbd "M-i") 'helm-mini)
+;; (global-set-key (kbd "M-k") 'helm-buffers-list)
 
 
 ;;; search files by silver searcher (alternate tool of grep and ack)
@@ -65,7 +65,7 @@
 (global-set-key (kbd "M-s M-f") 'ag-project-at-point)
 (global-set-key (kbd "M-s M-r") 'ag-regexp-project-at-point)
 
-(global-set-key (kbd "M-s M-s") 'helm-occur)
+;; (global-set-key (kbd "M-s M-s") 'helm-occur)
 
 ;;; window  or buffer
 
@@ -82,7 +82,6 @@
 (global-set-key (kbd "C-9") (lambda ()
                               (interactive)
                               (move-to-window-line-top-bottom -1)))
-(global-set-key (kbd "C-0") 'helm-occur)
 
 
 ;; (global-set-key (kbd "M-g o") 'previous-error)
@@ -90,7 +89,6 @@
 
 ;;; function keys
 
-;; (global-set-key [f9] 'helm-mini)
 ;; (global-set-key [f10] 'lookup-word-definition)
 ;; (global-set-key [f11] 'eshell)
 ;; (global-set-key [f12] '(lambda () (interactive)

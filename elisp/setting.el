@@ -1,3 +1,6 @@
+(setq custom-file (locate-user-emacs-file "custom-vars.el"))
+(load custom-file 'noerror 'nomessage)
+
 ;; placeing all backup files in one directory
 (setq temporary-file-directory "~/.emacs.d/temp/")
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
@@ -5,8 +8,17 @@
 (setq auto-save-list-file-prefix  (concat temporary-file-directory "auto-saves-"))
 (setq eshell-directory-name "~/.emacs.d/temp/eshell")
 (setq use-dialog-box nil)
-(setq custom-file (locate-user-emacs-file "custom-vars.el"))
-(load custom-file 'noerror 'nomessage)
+
+;; auto save and resotre desktop sessions
+(setq desktop-dirname             "~/.emacs.d/temp/desktop/"
+            desktop-base-file-name      "emacs.desktop"
+            desktop-base-lock-name      "lock"
+            desktop-path                (list desktop-dirname)
+            desktop-save                t
+            desktop-files-not-to-save   "^$" ;reload tramp paths
+            desktop-load-locked-desktop nil
+            desktop-auto-save-timeout   30)
+;; (desktop-save-mode 1)
 
 ;; dired
 (setq dired-recursive-copies 'always)
@@ -15,6 +27,7 @@
 (setq dired-dwim-target t)
 
 ;; useful in ido-mode
+(ido-mode t)
 (setq enable-recursive-minibuffers t)
 
 ;; hippie-expand
