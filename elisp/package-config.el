@@ -43,6 +43,8 @@
    ("M-k"     . ivy-switch-buffer)
    ;; ("C-x l"   . counsel-locate)
    ("C-x C-f" . counsel-find-file)
+   ("C-x b" . counsel-bookmark)
+   ("C-x C-b" . counsel-bookmark)
    ;; ("<f1> f"  . counsel-describe-function)
    ;; ("<f1> v"  . counsel-describe-variable)
    ;; ("<f1> l"  . counsel-find-library)
@@ -78,6 +80,7 @@
   (global-set-key (kbd "M-l") 'ace-jump-line-mode)
   (global-set-key (kbd "C-l") 'ace-jump-word-mode))
 
+;; https://github.com/ggreer/the_silver_searcher?tab=readme-ov-file#installing
 (use-package ag)
 
 (use-package smartparens
@@ -205,10 +208,10 @@
   :config
   (setq projectile-completion-system 'ivy)
   :bind (:map projectile-mode-map
-              ("s-p" . projectile-command-map)
-              ("C-c p" . projectile-command-map)))
+              ("C-c p" . projectile-command-map)
+              ("C-c p s" . counsel-projectile-ag)))
 
-;; (use-package helm-projectile)
+(use-package counsel-projectile)
 
 ;; (use-package jinja2-mode
 ;;   :mode ("\\.sls" . jinja2-mode))

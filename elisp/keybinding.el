@@ -19,10 +19,6 @@
 (global-set-key (kbd "M-H") 'mark-whole-buffer)
 
 (global-set-key (kbd "C-x f") 'dired-jump)
-;; (global-set-key (kbd "M-X") 'helm-M-x)
-;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
-;; (global-set-key (kbd "C-x b") 'helm-bookmarks)
-;; (global-set-key (kbd "C-x C-b") 'helm-bookmarks)
 
 
 ;;; quick edit
@@ -56,16 +52,12 @@
 
 (global-set-key (kbd "M-j") 'other-window)
 (global-set-key (kbd "M-C-j") 'back-window)
-;; (global-set-key (kbd "M-i") 'helm-mini)
-;; (global-set-key (kbd "M-k") 'helm-buffers-list)
 
 
 ;;; search files by silver searcher (alternate tool of grep and ack)
 
 (global-set-key (kbd "M-s M-f") 'ag-project-at-point)
 (global-set-key (kbd "M-s M-r") 'ag-regexp-project-at-point)
-
-;; (global-set-key (kbd "M-s M-s") 'helm-occur)
 
 ;;; window  or buffer
 
@@ -84,7 +76,7 @@
                               (move-to-window-line-top-bottom -1)))
 
 
-;; (global-set-key (kbd "M-g o") 'previous-error)
+(global-set-key (kbd "M-g o") 'previous-error)
 
 
 ;;; function keys
