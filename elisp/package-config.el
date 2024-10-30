@@ -34,7 +34,7 @@
 (use-package counsel
   :bind* ; load when pressed
   (("M-x"     . counsel-M-x)
-   ("C-s"     . swiper)
+   ;; ("C-s"     . swiper)
    ("C-x C-f" . counsel-find-file)
    ;; ("C-c g"   . counsel-git)      ; search for files in git repo
    ;; ("M-c j"   . counsel-git-grep) ; search for regexp in git repo

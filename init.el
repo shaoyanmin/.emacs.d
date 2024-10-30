@@ -3,7 +3,7 @@
   (load-file (expand-file-name (concat file ".el") "~/.emacs.d/elisp/")))
 
 (add-to-list 'load-path "~/.emacs.d/elisp/")
-
+(load-user-file "editor")
 (load-user-file "setting")
 
 (require 'package)
@@ -22,7 +22,6 @@
 
 (set-language-environment "UTF-8")
 
-(load-user-file "editor")
 (load-user-file "package-config")
 (load-user-file "style")
 (load-user-file "keybinding")
