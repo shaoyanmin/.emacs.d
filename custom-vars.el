@@ -10,7 +10,7 @@
  '(kill-ring-max 5000)
  '(kill-whole-line t)
  '(package-selected-packages
-   '(counsel-projectile counsel ivy salt-mode nerd-icons doom-modeline tree-sitter-langs plantuml-mode jinja2-mode tsx-ts-mode js-ts-mode projectile clang-format web-mode use-package undo-tree textmate smartparens rainbow-delimiters paren-face paredit neotree multiple-cursors markdown-mode magit key-chord expand-region emmet-mode eglot doom-themes ag ace-jump-mode ace-jump-buffer))
+   '(marginalia counsel-projectile counsel ivy salt-mode nerd-icons doom-modeline tree-sitter-langs plantuml-mode jinja2-mode tsx-ts-mode js-ts-mode projectile clang-format web-mode use-package undo-tree textmate smartparens rainbow-delimiters paren-face paredit neotree multiple-cursors markdown-mode magit key-chord expand-region emmet-mode eglot doom-themes ag ace-jump-mode ace-jump-buffer))
  '(warning-suppress-types '((comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
