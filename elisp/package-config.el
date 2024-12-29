@@ -34,6 +34,7 @@
 (use-package counsel
   :config
   (setq ivy-use-selectable-prompt t)
+  (setq ivy-initial-inputs-alist nil)
   :bind* ; load when pressed
   (("M-x"     . counsel-M-x)
    ;; ("C-s"     . swiper)
