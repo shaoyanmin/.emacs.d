@@ -243,3 +243,27 @@
 ;;   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
 ;;   (setq plantuml-jar-path "~/opt/plantuml/plantuml.jar")
 ;;   (setq plantuml-default-exec-mode 'jar))
+
+
+;; PDF-tools
+(use-package tablist)
+
+;; Prerequisite pacakges:
+;;   cd ~/opt
+;;   git clone https://github.com/vedang/pdf-tools.git
+;;   cd opt/pdf-tools/
+;;   make server/epdfinfo
+(use-package pdf-tools
+  :if (and
+       (featurep 'tablist)
+       (string-equal system-type "gnu/linux"))
+  :pin manual
+  :load-path "~/opt/pdf-tools/lisp"
+  :magic ("%PDF" . pdf-view-mode)
+  :config
+  (setq pdf-info-epdfinfo-program "~/opt/pdf-tools/server/epdfinfo")
+  (let* ((files   (directory-files "~/opt/pdf-tools/lisp/" nil "\\.el"))
+	       (names   (seq-map #'(lambda (s) (string-trim-right s "\\.el")) files))
+	       (symbols (seq-map #'intern names)))
+    (seq-do #'require symbols))
+  (pdf-tools-install :no-query))
