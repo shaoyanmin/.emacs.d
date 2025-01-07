@@ -12,13 +12,31 @@
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
+
 (unless package-archive-contents
   (package-refresh-contents))
 (unless (package-installed-p 'use-package)
    (package-install 'use-package))
+
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; https://github.com/radian-software/straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
 (set-language-environment "UTF-8")
 
@@ -32,7 +50,7 @@
     (message "Microsoft Windows")
     (setq default-directory "~/")
     (set-frame-font "consolas 10")
-    (enable-desktop-auto-save)
+    ;; (enable-desktop-auto-save)
     ))
 
  ((string-equal system-type "darwin")   ; Mac OS X
@@ -44,10 +62,13 @@
     (setq exec-path (append exec-path '("/usr/local/bin")))
     ;; (set-default-font "Monaco 13")
     (setq mac-command-modifier 'control)
-    (enable-desktop-auto-save)))
+    ;; (enable-desktop-auto-save)
+    ))
 
  ((string-equal system-type "gnu/linux") ; linux
    (progn
-     (set-frame-font "Source Code Pro 12")
-     (add-to-list 'default-frame-alist '(font . "Source Code Pro 12"))
+     ;; (set-frame-font "Source Code Pro 12")
+     ;; (add-to-list 'default-frame-alist '(font . "Source Code Pro 12"))
+     (set-frame-font "Iosevka 12")
+     (add-to-list 'default-frame-alist '(font . "Iosevka 12"))
      (message "Linux"))))

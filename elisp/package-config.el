@@ -1,3 +1,13 @@
+(use-package exec-path-from-shell
+  :if (string-equal system-type "gnu/linux")
+  ;; :init
+  ;; (require 'exec-path-from-shell)
+  ;; (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
+  ;;   (add-to-list 'exec-path-from-shell-variables var))
+  :config
+  (when (daemonp)
+    (exec-path-from-shell-initialize)))
+
 (use-package nerd-icons
    ;; Use M-x nerd-icons-install-fonts to install Symbols Nerd Fonts Mono for you
   )
@@ -43,7 +53,7 @@
    ;; ("M-c j"   . counsel-git-grep) ; search for regexp in git repo
    ("M-s M-s"   . counsel-ag)       ; Use ag for regexp
    ("M-i"     . counsel-buffer-or-recentf)
-   ("M-k"     . ivy-switch-buffer)
+   ;; ("M-k"     . ivy-switch-buffer)
    ;; ("C-x l"   . counsel-locate)
    ("C-x C-f" . counsel-find-file)
    ("C-x b" . counsel-bookmark)
@@ -205,11 +215,13 @@
               ("o" . neotree-previous-line))
   )
 
-;; (use-package eglot
-;;   :config
-;;   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
-;;   (add-hook 'c-mode-hook 'eglot-ensure)
-;;   (add-hook 'c++-mode-hook 'eglot-ensure))
+(use-package eglot
+  :config
+  ;; (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+  (add-to-list 'eglot-server-programs '((ocaml-mode ocaml-ts-mode) "ocamllsp"))
+  ;; (add-hook 'c-mode-hook 'eglot-ensure)
+  ;; (add-hook 'c++-mode-hook 'eglot-ensure)
+  )
 
 ;; (use-package delsel
 ;;   :ensure nil
@@ -231,6 +243,25 @@
               ("C-c p s" . counsel-projectile-ag)))
 
 (use-package counsel-projectile)
+
+(use-package perspective
+  :bind
+  ("C-c C-s" . persp-list-buffers)         ; or use a nicer switcher, see below
+  :custom
+  (persp-mode-prefix-key (kbd "C-c s"))  ; pick your own prefix key here
+  :config
+  (global-set-key (kbd "M-k") (lambda (arg)
+                                  (interactive "P")
+                                  (if (fboundp 'persp-bs-show)
+                                      (persp-bs-show arg)
+                                    (bs-show "all"))))
+  (add-hook 'ibuffer-hook
+          (lambda ()
+            (persp-ibuffer-set-filter-groups)
+            (unless (eq ibuffer-sorting-mode 'alphabetic)
+              (ibuffer-do-sort-by-alphabetic))))
+  :init
+  (persp-mode))
 
 ;; (use-package jinja2-mode
 ;;   :mode ("\\.sls" . jinja2-mode))
@@ -267,3 +298,36 @@
 	       (symbols (seq-map #'intern names)))
     (seq-do #'require symbols))
   (pdf-tools-install :no-query))
+
+(use-package org-noter
+  :straight
+  (:repo "org-noter/org-noter"
+         :host github
+         :type git
+         :files ("*.el" "modules/*.el")))
+
+(use-package ocaml-ts-mode
+  :ensure nil                        ; Don't try to install from MELPA
+  :straight (ocaml-ts-mode
+             :type git
+             :host github
+             :repo "terrateamio/ocaml-ts-mode")
+  :mode (("\\.ml\\'" . ocaml-ts-mode)
+         ("\\.mli\\'" . ocaml-ts-mode))
+  ;; :hook ((ocaml-ts-mode . eglot-ensure))  ; Optional: Enable LSP support via eglot
+  :init  (exec-path-from-shell-initialize)
+  :config
+  (add-hook 'ocaml-ts-mode-hook
+            (lambda ()
+              (eglot-ensure)
+              ;; (company-mode)
+              (flyspell-prog-mode)
+              ;; (local-set-key (kbd "C-<tab>") 'company-complete)
+              (add-hook 'before-save-hook 'ocamlformat)
+              (setq indent-tabs-mode nil)
+              (setq truncate-lines t)
+              (setq whitespace-line-column 100)
+              (setq whitespace-style '(face trailing lines-tail))
+              (whitespace-mode)
+              ;; (yafolding-mode)
+              (rainbow-delimiters-mode))))
