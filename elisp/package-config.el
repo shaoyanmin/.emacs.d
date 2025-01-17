@@ -184,29 +184,6 @@
 
 (use-package rainbow-delimiters)
 
-;; (use-package emmet-mode)
-
-;; (use-package web-mode
-;;   :mode ("\\.html" . web-mode) ("\\.ejs" . web-mode) ("\\.vue" . web-mode) ("\\.wxml" . web-mode)
-;;   :hook emmet-mode
-;;   :config
-;;   (require 'sgml-mode)
-;;   (setq web-mode-markup-indent-offset 2)
-;;   :bind
-;;   (:map web-mode-map
-;;         ("C-M-f" . web-mode-tag-next)
-;;         ("C-M-b" . web-mode-tag-previous)
-;;         ("C-M-e" . web-mode-element-end)
-;;         ("C-M-a" . web-mode-element-beginning)
-;;         ("C-M-k" . web-mode-element-kill)
-;;         ("C-M-n" . sgml-skip-tag-forward)
-;;         ("C-M-p" . sgml-skip-tag-backward)
-;;         ("C-M-o" . sgml-skip-tag-backward)
-;;         ("C-M-u" . web-mode-element-parent)
-;;         ("C-M-d" . web-mode-element-child)
-;;         ("<return>" . newline-and-indent)
-;;         ))
-
 (use-package neotree
   :config
   (setq neo-smart-open t)
@@ -222,10 +199,6 @@
   ;; (add-hook 'c-mode-hook 'eglot-ensure)
   ;; (add-hook 'c++-mode-hook 'eglot-ensure)
   )
-
-;; (use-package delsel
-;;   :ensure nil
-;;   :init (delete-selection-mode 1))
 
 ;; (use-package clang-format
 ;;   :ensure t
@@ -250,16 +223,13 @@
   :custom
   (persp-mode-prefix-key (kbd "C-c s"))  ; pick your own prefix key here
   :config
-  (global-set-key (kbd "M-k") (lambda (arg)
-                                  (interactive "P")
-                                  (if (fboundp 'persp-bs-show)
-                                      (persp-bs-show arg)
-                                    (bs-show "all"))))
+  (global-set-key (kbd "M-k") 'persp-counsel-switch-buffer)
   (add-hook 'ibuffer-hook
           (lambda ()
             (persp-ibuffer-set-filter-groups)
             (unless (eq ibuffer-sorting-mode 'alphabetic)
               (ibuffer-do-sort-by-alphabetic))))
+  (add-hook 'kill-emacs-hook #'persp-state-save)
   :init
   (persp-mode))
 
@@ -268,13 +238,6 @@
 
 (use-package salt-mode
   :mode ("\\.sls" . salt-mode))
-
-;; (use-package plantuml-mode
-;;   :config
-;;   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-;;   (setq plantuml-jar-path "~/opt/plantuml/plantuml.jar")
-;;   (setq plantuml-default-exec-mode 'jar))
-
 
 ;; PDF-tools
 (use-package tablist)
@@ -291,6 +254,8 @@
   :pin manual
   :load-path "~/opt/pdf-tools/lisp"
   :magic ("%PDF" . pdf-view-mode)
+  :hook
+  (pdf-annot-list-mode . pdf-annot-list-follow-minor-mode)
   :config
   (setq pdf-info-epdfinfo-program "~/opt/pdf-tools/server/epdfinfo")
   (let* ((files   (directory-files "~/opt/pdf-tools/lisp/" nil "\\.el"))
@@ -298,36 +263,3 @@
 	       (symbols (seq-map #'intern names)))
     (seq-do #'require symbols))
   (pdf-tools-install :no-query))
-
-(use-package org-noter
-  :straight
-  (:repo "org-noter/org-noter"
-         :host github
-         :type git
-         :files ("*.el" "modules/*.el")))
-
-(use-package ocaml-ts-mode
-  :ensure nil                        ; Don't try to install from MELPA
-  :straight (ocaml-ts-mode
-             :type git
-             :host github
-             :repo "terrateamio/ocaml-ts-mode")
-  :mode (("\\.ml\\'" . ocaml-ts-mode)
-         ("\\.mli\\'" . ocaml-ts-mode))
-  ;; :hook ((ocaml-ts-mode . eglot-ensure))  ; Optional: Enable LSP support via eglot
-  :init  (exec-path-from-shell-initialize)
-  :config
-  (add-hook 'ocaml-ts-mode-hook
-            (lambda ()
-              (eglot-ensure)
-              ;; (company-mode)
-              (flyspell-prog-mode)
-              ;; (local-set-key (kbd "C-<tab>") 'company-complete)
-              (add-hook 'before-save-hook 'ocamlformat)
-              (setq indent-tabs-mode nil)
-              (setq truncate-lines t)
-              (setq whitespace-line-column 100)
-              (setq whitespace-style '(face trailing lines-tail))
-              (whitespace-mode)
-              ;; (yafolding-mode)
-              (rainbow-delimiters-mode))))
