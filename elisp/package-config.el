@@ -246,7 +246,7 @@
 ;;   cd ~/opt
 ;;   git clone https://github.com/vedang/pdf-tools.git
 ;;   cd opt/pdf-tools/
-;;   make server/epdfinfo
+;;   ./server/autobuild
 (use-package pdf-tools
   :if (and
        (featurep 'tablist)
