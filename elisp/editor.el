@@ -365,3 +365,29 @@ If a region is active (a phrase), lookup that phrase."
           desktop-load-locked-desktop nil
           desktop-auto-save-timeout   30)
     (desktop-save-mode 1)))
+
+
+(defvar xah-fly-mswin-terminal
+  "wt"
+  "A string. Value should be one of: wt (for Windows Terminal) or pwsh (for PowerShell Core (cross-platform)) or powershell (for Microsoft PowerShell).")
+
+(defun xah-open-in-terminal ()
+  "Open the current dir in a new terminal window.
+On Microsoft Windows, which terminal it starts depends on `xah-fly-mswin-terminal'.
+
+URL `http://xahlee.info/emacs/emacs/emacs_open_in_terminal.html'
+Version: 2020-11-21 2022-08-04 2023-03-01 2023-06-26"
+  (interactive)
+  (cond
+   ((eq system-type 'windows-nt)
+    (cond
+     ((string-equal xah-fly-mswin-terminal "wt") (shell-command (format "wt -d \"%s\"" default-directory)))
+     ((string-equal xah-fly-mswin-terminal "pwsh") (shell-command (format "pwsh -Command Start-Process pwsh -WorkingDirectory '%s'" (shell-quote-argument default-directory))))
+     ((string-equal xah-fly-mswin-terminal "powershell") (shell-command (format "powershell -Command Start-Process powershell -WorkingDirectory '%s'" (shell-quote-argument default-directory))))
+     (t (error "Error 702919: value of `xah-fly-mswin-terminal' is not expected. Its value is %s" xah-fly-mswin-terminal))))
+   ((eq system-type 'darwin)
+    (shell-command (concat "open -a terminal " (shell-quote-argument (expand-file-name default-directory)))))
+   ((eq system-type 'gnu/linux)
+    (let ((process-connection-type nil)) (start-process "" nil "alacritty" (concat "--working-directory=" default-directory))))
+   ((eq system-type 'berkeley-unix)
+    (let ((process-connection-type nil)) (start-process "" nil "alacritty" (concat "--working-directory=" default-directory))))))

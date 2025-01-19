@@ -6,6 +6,7 @@
 ;; (global-set-key (kbd "<f2>") 'helm-bookmarks)
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 (global-set-key (kbd "<f9>") 'neotree-find)
+(global-set-key (kbd "<f12>") 'xah-open-in-terminal)
 (global-unset-key (kbd "C-<down-mouse-1>"))
 
 
