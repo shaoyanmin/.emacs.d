@@ -53,7 +53,7 @@
    ;; ("M-c j"   . counsel-git-grep) ; search for regexp in git repo
    ("M-s M-s"   . counsel-ag)       ; Use ag for regexp
    ("M-i"     . counsel-buffer-or-recentf)
-   ;; ("M-k"     . ivy-switch-buffer)
+   ("M-k"     . ivy-switch-buffer)
    ;; ("C-x l"   . counsel-locate)
    ("C-x C-f" . counsel-find-file)
    ("C-x b" . counsel-bookmark)
@@ -86,6 +86,7 @@
   (global-set-key (kbd "C-x g") 'magit-status))
 
 (use-package undo-tree
+  :ensure t
   :config
   (global-undo-tree-mode t)
   (setq undo-tree-auto-save-history t)
@@ -217,21 +218,22 @@
 
 (use-package counsel-projectile)
 
-(use-package perspective
-  :bind
-  ("C-c C-s" . persp-list-buffers)         ; or use a nicer switcher, see below
-  :custom
-  (persp-mode-prefix-key (kbd "C-c s"))  ; pick your own prefix key here
-  :config
-  (global-set-key (kbd "M-k") 'persp-counsel-switch-buffer)
-  (add-hook 'ibuffer-hook
-          (lambda ()
-            (persp-ibuffer-set-filter-groups)
-            (unless (eq ibuffer-sorting-mode 'alphabetic)
-              (ibuffer-do-sort-by-alphabetic))))
-  (add-hook 'kill-emacs-hook #'persp-state-save)
-  :init
-  (persp-mode))
+;; (use-package perspective
+;;   :bind
+;;   ("C-c C-s" . persp-list-buffers)         ; or use a nicer switcher, see below
+;;   ;; (:map counsel-p
+;;   ;;             ("o" . neotree-previous-line))
+;;   :custom
+;;   (persp-mode-prefix-key (kbd "C-c s"))  ; pick your own prefix key here
+;;   :config
+;;   (global-set-key (kbd "M-k") 'persp-counsel-switch-buffer)
+;;   (add-hook 'ibuffer-hook
+;;           (lambda ()
+;;             (persp-ibuffer-set-filter-groups)
+;;             (unless (eq ibuffer-sorting-mode 'alphabetic)
+;;               (ibuffer-do-sort-by-alphabetic))))
+;;   :init
+;;   (persp-mode))
 
 ;; (use-package jinja2-mode
 ;;   :mode ("\\.sls" . jinja2-mode))
@@ -263,3 +265,19 @@
 	       (symbols (seq-map #'intern names)))
     (seq-do #'require symbols))
   (pdf-tools-install :no-query))
+
+
+;; gptel
+(use-package gptel
+  :straight t
+  :config
+  (setq gptel-model 'deepseek-chat
+        gptel-backend
+        (gptel-make-openai "DeepSeek"
+          :host "api.deepseek.com"
+          :endpoint "/chat/completions"
+          :key (lambda () (exec-path-from-shell-copy-env "DEEP_SEEK_TOKEN"))
+          :stream t
+          :models '(deepseek-chat deepseek-coder)))
+  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
+  (add-hook 'gptel-post-response-functions 'gptel-end-of-response))
