@@ -3,7 +3,6 @@
 (global-unset-key (kbd "<f1>"))
 (global-unset-key (kbd "<f2>"))
 (global-set-key (kbd "<f1>") 'save-buffer)
-;; (global-set-key (kbd "<f2>") 'helm-bookmarks)
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 (global-set-key (kbd "<f9>") 'neotree-find)
 (global-set-key (kbd "<f12>") 'xah-open-in-terminal)

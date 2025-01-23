@@ -214,26 +214,10 @@
   (setq projectile-completion-system 'ivy)
   :bind (:map projectile-mode-map
               ("C-c p" . projectile-command-map)
-              ("C-c p s" . counsel-projectile-ag)))
+              ("C-c p s" . counsel-projectile-ag)
+              ("<f2>" . projectile-find-file)))
 
 (use-package counsel-projectile)
-
-;; (use-package perspective
-;;   :bind
-;;   ("C-c C-s" . persp-list-buffers)         ; or use a nicer switcher, see below
-;;   ;; (:map counsel-p
-;;   ;;             ("o" . neotree-previous-line))
-;;   :custom
-;;   (persp-mode-prefix-key (kbd "C-c s"))  ; pick your own prefix key here
-;;   :config
-;;   (global-set-key (kbd "M-k") 'persp-counsel-switch-buffer)
-;;   (add-hook 'ibuffer-hook
-;;           (lambda ()
-;;             (persp-ibuffer-set-filter-groups)
-;;             (unless (eq ibuffer-sorting-mode 'alphabetic)
-;;               (ibuffer-do-sort-by-alphabetic))))
-;;   :init
-;;   (persp-mode))
 
 ;; (use-package jinja2-mode
 ;;   :mode ("\\.sls" . jinja2-mode))
@@ -280,4 +264,8 @@
           :stream t
           :models '(deepseek-chat deepseek-coder)))
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
-  (add-hook 'gptel-post-response-functions 'gptel-end-of-response))
+  (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
+  (global-set-key (kbd "C-c g s") 'gptel-send)
+  (global-set-key (kbd "C-c g r") 'gptel-rewrite)
+  :bind (:map gptel-mode-map
+              ("<f2>" . gptel-send)))
