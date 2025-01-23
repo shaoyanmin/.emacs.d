@@ -120,6 +120,8 @@
          (org-mode . smartparens-mode)
          (markdown-mode . smartparens-mode)))
 
+(use-package markdown-mode)
+
 (use-package key-chord
   :config
   (key-chord-mode t))
@@ -265,7 +267,8 @@
           :models '(deepseek-chat deepseek-coder)))
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
-  (global-set-key (kbd "C-c g s") 'gptel-send)
-  (global-set-key (kbd "C-c g r") 'gptel-rewrite)
+  (global-set-key (kbd "<f11> s") 'gptel-send)
+  (global-set-key (kbd "<f11> r") 'gptel-rewrite)
+  (global-set-key (kbd "<f11> <f11>") '(lambda () "Open geptel chat session" (interactive) (switch-to-buffer (gptel "*DeepSeek*"))))
   :bind (:map gptel-mode-map
               ("<f2>" . gptel-send)))

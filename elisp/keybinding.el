@@ -2,6 +2,7 @@
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "<f1>"))
 (global-unset-key (kbd "<f2>"))
+(global-unset-key (kbd "<f11>"))
 (global-set-key (kbd "<f1>") 'save-buffer)
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 (global-set-key (kbd "<f9>") 'neotree-find)

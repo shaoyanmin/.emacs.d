@@ -25,6 +25,7 @@ transient/
 server/
 .#*
 projectile-*.eld
+projects
 eln-cache/*
 tree-sitter/*
 places
