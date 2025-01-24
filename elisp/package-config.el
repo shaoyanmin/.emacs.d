@@ -255,6 +255,7 @@
 
 ;; gptel
 (use-package gptel
+  :if (string-equal system-type "gnu/linux")
   :straight t
   :config
   (setq gptel-model 'deepseek-chat
