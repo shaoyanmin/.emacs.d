@@ -265,10 +265,20 @@
           :key (lambda () (exec-path-from-shell-copy-env "DEEP_SEEK_TOKEN"))
           :stream t
           :models '(deepseek-chat deepseek-coder)))
-  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
+  ;; (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   (global-set-key (kbd "<f11> s") 'gptel-send)
   (global-set-key (kbd "<f11> r") 'gptel-rewrite)
-  (global-set-key (kbd "<f11> <f11>") '(lambda () "Open geptel chat session" (interactive) (switch-to-buffer (gptel "*DeepSeek*"))))
   :bind (:map gptel-mode-map
               ("<f2>" . gptel-send)))
+
+(let ((plantuml-jar-file-path "~/opt/plantuml/plantuml.jar"))
+ (when (file-exists-p plantuml-jar-file-path)
+   (use-package plantuml-mode
+     :mode "(\\.\\(plantuml?\\|uml\\|puml\\)\\'"
+     :config
+     (setq plantuml-default-exec-mode 'jar)
+     (setq plantuml-jar-path plantuml-jar-file-path)
+     (setq plantuml-indent-level 2)
+     (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+     (add-to-list 'auto-mode-alist '("\\.uml\\'" . plantuml-mode)))))
