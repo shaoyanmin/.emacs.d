@@ -52,7 +52,7 @@
    ;; ("C-c g"   . counsel-git)      ; search for files in git repo
    ;; ("M-c j"   . counsel-git-grep) ; search for regexp in git repo
    ("M-s M-s"   . counsel-ag)       ; Use ag for regexp
-   ("M-i"     . counsel-buffer-or-recentf)
+   ;; ("M-i"     . counsel-buffer-or-recentf)
    ("M-k"     . ivy-switch-buffer)
    ;; ("C-x l"   . counsel-locate)
    ("C-x C-f" . counsel-find-file)
@@ -269,6 +269,7 @@
   ;; (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   (global-set-key (kbd "<f11> s") 'gptel-send)
+  (global-set-key (kbd "M-i") 'gptel-send)
   (global-set-key (kbd "<f11> r") 'gptel-rewrite)
   :bind (:map gptel-mode-map
               ("<f2>" . gptel-send)))
