@@ -268,9 +268,6 @@
           :models '(deepseek-chat deepseek-coder)))
   ;; (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
-  (global-set-key (kbd "<f11> s") 'gptel-send)
-  (global-set-key (kbd "M-i") 'gptel-send)
-  (global-set-key (kbd "<f11> r") 'gptel-rewrite)
   :bind (:map gptel-mode-map
               ("<f2>" . gptel-send)))
 

@@ -3,12 +3,20 @@
 (global-unset-key (kbd "<f1>"))
 (global-unset-key (kbd "<f2>"))
 (global-unset-key (kbd "<f11>"))
+(global-unset-key (kbd "M-i"))
 (global-set-key (kbd "<f1>") 'save-buffer)
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 (global-set-key (kbd "<f9>") 'neotree-find)
-(global-set-key (kbd "<f11> <f11>") 'my-gptel-open-chat)
 (global-set-key (kbd "<f12>") 'xah-open-in-terminal)
 (global-unset-key (kbd "C-<down-mouse-1>"))
+
+;;;; gpt
+(define-prefix-command 'gpt-prefix-map)
+(global-set-key (kbd "M-i") 'gpt-prefix-map)
+(define-key gpt-prefix-map (kbd "M-i") 'gptel-send)
+(define-key gpt-prefix-map (kbd "M-j") 'gptel-rewrite)
+(define-key gpt-prefix-map (kbd "M-g") 'gptel-abort)
+(define-key gpt-prefix-map (kbd "M-o") 'gptel)
 
 
 ;;;; quick move or selection
