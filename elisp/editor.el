@@ -388,7 +388,9 @@ Version: 2020-11-21 2022-08-04 2023-03-01 2023-06-26"
    ((eq system-type 'darwin)
     (shell-command (concat "open -a terminal " (shell-quote-argument (expand-file-name default-directory)))))
    ((eq system-type 'gnu/linux)
-    (let ((process-connection-type nil)) (start-process "" nil "alacritty" (concat "--working-directory=" default-directory))))
+    (let ((process-connection-type nil)
+          (absolute-default-directory (expand-file-name default-directory)))
+      (start-process "" nil "alacritty" (concat "--working-directory=" default-directory))))
    ((eq system-type 'berkeley-unix)
     (let ((process-connection-type nil)) (start-process "" nil "alacritty" (concat "--working-directory=" default-directory))))))
 

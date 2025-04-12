@@ -329,7 +329,8 @@
   :bind (:map projectile-mode-map
               ("C-c p" . projectile-command-map)
               ("C-c p s" . consult-git-grep)
-              ("<f2>" . projectile-find-file)))
+              ("C-c p f" . consult-projectile-find-file)
+              ("<f2>" . consult-projectile-find-file)))
 
 (use-package consult-projectile
   :straight (consult-projectile :type git :host gitlab :repo "OlMon/consult-projectile" :branch "master"))
