@@ -39,6 +39,7 @@
   (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
   (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
   :init
+  (recentf-mode)
   (vertico-mode)
   :config
   (setq read-file-name-completion-ignore-case t
