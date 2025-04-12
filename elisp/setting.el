@@ -27,8 +27,8 @@
 (setq dired-dwim-target t)
 
 ;; useful in ido-mode
-(ido-mode t)
-(setq enable-recursive-minibuffers t)
+;; (ido-mode t)
+;; (setq enable-recursive-minibuffers t)
 
 ;; hippie-expand
 (setq hippie-expand-try-functions-list

@@ -51,19 +51,31 @@
               ("TAB" . minibuffer-complete)
               ("M-TAB" . minibuffer-complete)))
 
+;; Configure directory extension.
+(use-package vertico-directory
+  :after vertico
+  :ensure nil
+  ;; More convenient directory navigation commands
+  :bind (:map vertico-map
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word))
+  ;; Tidy shadowed file names
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
 (use-package consult
   :bind (;; C-c bindings in `mode-specific-map'
          ([remap Info-search] . consult-info)
          ;; C-x bindings in `ctl-x-map'
-         ("M-k" . consult-buffer)                ;; orig. switch-to-buffer
-         ("C-M-k" . consult-recent-file)                ;; orig. switch-to-buffer
-         ("C-x C-b" . consult-bookmark)            ;; orig. bookmark-jump
-         ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+         ("M-k" . consult-buffer)        ;; orig. switch-to-buffer
+         ("C-M-k" . consult-recent-file) ;; orig. switch-to-buffer
+         ("C-x C-b" . consult-bookmark)  ;; orig. bookmark-jump
+         ("C-x p b" . consult-project-buffer) ;; orig. project-switch-to-buffer
          ("M-g e" . consult-compile-error)
-         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
-         ("M-g g" . consult-goto-line)             ;; orig. goto-line
-         ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
-         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g f" . consult-flymake) ;; Alternative: consult-flycheck
+         ("M-g g" . consult-goto-line)   ;; orig. goto-line
+         ("M-g M-g" . consult-goto-line) ;; orig. goto-line
+         ("M-g o" . consult-outline) ;; Alternative: consult-org-heading
          ("M-g m" . consult-mark)
          ("M-g k" . consult-global-mark))
 
@@ -112,7 +124,7 @@
   ;; Optionally make narrowing help available in the minibuffer.
   ;; You may want to use `embark-prefix-help-command' or which-key instead.
   ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
-)
+  )
 
 (use-package orderless
   :demand t
@@ -320,8 +332,6 @@
 
 (use-package consult-projectile
   :straight (consult-projectile :type git :host gitlab :repo "OlMon/consult-projectile" :branch "master"))
-
-;; (use-package counsel-projectile)
 
 ;; (use-package jinja2-mode
 ;;   :mode ("\\.sls" . jinja2-mode))
