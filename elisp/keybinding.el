@@ -15,7 +15,7 @@
 (global-set-key (kbd "M-i") 'gpt-prefix-map)
 (define-key gpt-prefix-map (kbd "M-i") 'gptel-send)
 (define-key gpt-prefix-map (kbd "M-j") 'gptel-rewrite)
-(define-key gpt-prefix-map (kbd "M-g") 'gptel-abort)
+(define-key gpt-prefix-map (kbd "M-k") 'gptel-abort)
 (define-key gpt-prefix-map (kbd "M-o") 'gptel)
 
 

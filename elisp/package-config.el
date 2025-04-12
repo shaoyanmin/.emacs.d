@@ -30,40 +30,139 @@
   (setq doom-modeline-project-detection 'auto)
   (setq doom-modeline-buffer-file-name-style 'relative-from-project))
 
-(use-package ivy
-  :diminish (ivy-mode . "")
-  :init (ivy-mode 1) ; globally at startup
-  :config
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-height 20)
-  (setq ivy-count-format "%d/%d ")
-  ;; :bind (:map ivy-minibuffer-map
-  ;;             ("C-p" . ivy-previous-line))
-  )
 
-(use-package counsel
+;; https://github.com/minad/vertico
+(use-package vertico
+  :custom
+  (vertico-scroll-margin 2) ;; Different scroll margin
+  (vertico-count 20) ;; Show more candidates
+  (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
+  (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
+  :init
+  (vertico-mode)
   :config
-  (setq ivy-use-selectable-prompt t)
-  (setq ivy-initial-inputs-alist nil)
-  :bind* ; load when pressed
-  (("M-x"     . counsel-M-x)
-   ;; ("C-s"     . swiper)
-   ("C-x C-f" . counsel-find-file)
-   ;; ("C-c g"   . counsel-git)      ; search for files in git repo
-   ;; ("M-c j"   . counsel-git-grep) ; search for regexp in git repo
-   ("M-s M-s"   . counsel-ag)       ; Use ag for regexp
-   ;; ("M-i"     . counsel-buffer-or-recentf)
-   ("M-k"     . ivy-switch-buffer)
-   ;; ("C-x l"   . counsel-locate)
-   ("C-x C-f" . counsel-find-file)
-   ("C-x b" . counsel-bookmark)
-   ("C-x C-b" . counsel-bookmark)
-   ;; ("<f1> f"  . counsel-describe-function)
-   ;; ("<f1> v"  . counsel-describe-variable)
-   ;; ("<f1> l"  . counsel-find-library)
-   ;; ("<f2> i"  . counsel-info-lookup-symbol)
-   ;; ("<f2> u"  . counsel-unicode-char)
-   ("C-c C-r" . ivy-resume)))
+  (setq read-file-name-completion-ignore-case t
+      read-buffer-completion-ignore-case t
+      completion-ignore-case t)
+  :bind (:map vertico-map
+              ("?" . minibuffer-completion-help)
+              ("M-o" . vertico-previous)
+              ("M-n" . vertico-next)
+              ("TAB" . minibuffer-complete)
+              ("M-TAB" . minibuffer-complete)))
+
+(use-package consult
+  :bind (;; C-c bindings in `mode-specific-map'
+         ([remap Info-search] . consult-info)
+         ;; C-x bindings in `ctl-x-map'
+         ("M-k" . consult-buffer)                ;; orig. switch-to-buffer
+         ("C-M-k" . consult-recent-file)                ;; orig. switch-to-buffer
+         ("C-x C-b" . consult-bookmark)            ;; orig. bookmark-jump
+         ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+         ("M-g e" . consult-compile-error)
+         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+         ("M-g g" . consult-goto-line)             ;; orig. goto-line
+         ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g m" . consult-mark)
+         ("M-g k" . consult-global-mark))
+
+  ;; Enable automatic preview at point in the *Completions* buffer. This is
+  ;; relevant when you use the default completion UI.
+  :hook (completion-list-mode . consult-preview-at-point-mode)
+
+  ;; The :init configuration is always executed (Not lazy)
+  :init
+
+  ;; Tweak the register preview for `consult-register-load',
+  ;; `consult-register-store' and the built-in commands.  This improves the
+  ;; register formatting, adds thin separator lines, register sorting and hides
+  ;; the window mode line.
+  (advice-add #'register-preview :override #'consult-register-window)
+  (setq register-preview-delay 0.5)
+
+  ;; Use Consult to select xref locations with preview
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+
+  ;; Configure other variables and modes in the :config section,
+  ;; after lazily loading the package.
+  :config
+
+  ;; Optionally configure preview. The default value
+  ;; is 'any, such that any key triggers the preview.
+  ;; (setq consult-preview-key 'any)
+  ;; (setq consult-preview-key "M-.")
+  ;; (setq consult-preview-key '("S-<down>" "S-<up>"))
+  ;; For some commands and buffer sources it is useful to configure the
+  ;; :preview-key on a per-command basis using the `consult-customize' macro.
+  (consult-customize
+   consult-theme :preview-key '(:debounce 0.2 any)
+   consult-ripgrep consult-git-grep consult-grep consult-man
+   consult-bookmark consult-recent-file consult-xref
+   consult--source-bookmark consult--source-file-register
+   consult--source-recent-file consult--source-project-recent-file
+   ;; :preview-key "M-."
+   :preview-key '(:debounce 0.4 any))
+
+  ;; Optionally configure the narrowing key.
+  ;; Both < and C-+ work reasonably well.
+  (setq consult-narrow-key "<") ;; "C-+"
+
+  ;; Optionally make narrowing help available in the minibuffer.
+  ;; You may want to use `embark-prefix-help-command' or which-key instead.
+  ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
+)
+
+(use-package orderless
+  :demand t
+  :config
+
+  (defun +orderless--consult-suffix ()
+    "Regexp which matches the end of string with Consult tofu support."
+    (if (boundp 'consult--tofu-regexp)
+        (concat consult--tofu-regexp "*\\'")
+      "\\'"))
+
+  ;; Recognizes the following patterns:
+  ;; * .ext (file extension)
+  ;; * regexp$ (regexp matching at end)
+  (defun +orderless-consult-dispatch (word _index _total)
+    (cond
+     ;; Ensure that $ works with Consult commands, which add disambiguation suffixes
+     ((string-suffix-p "$" word)
+      `(orderless-regexp . ,(concat (substring word 0 -1) (+orderless--consult-suffix))))
+     ;; File extensions
+     ((and (or minibuffer-completing-file-name
+               (derived-mode-p 'eshell-mode))
+           (string-match-p "\\`\\.." word))
+      `(orderless-regexp . ,(concat "\\." (substring word 1) (+orderless--consult-suffix))))))
+
+  ;; Define orderless style with initialism by default
+  (orderless-define-completion-style +orderless-with-initialism
+    (orderless-matching-styles '(orderless-initialism orderless-literal orderless-regexp)))
+
+  ;; Certain dynamic completion tables (completion-table-dynamic) do not work
+  ;; properly with orderless. One can add basic as a fallback.  Basic will only
+  ;; be used when orderless fails, which happens only for these special
+  ;; tables. Also note that you may want to configure special styles for special
+  ;; completion categories, e.g., partial-completion for files.
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        ;;; Enable partial-completion for files.
+        ;;; Either give orderless precedence or partial-completion.
+        ;;; Note that completion-category-overrides is not really an override,
+        ;;; but rather prepended to the default completion-styles.
+        ;; completion-category-overrides '((file (styles orderless partial-completion))) ;; orderless is tried first
+        completion-category-overrides '((file (styles partial-completion)) ;; partial-completion is tried first
+                                        ;; enable initialism by default for symbols
+                                        (command (styles +orderless-with-initialism))
+                                        (variable (styles +orderless-with-initialism))
+                                        (symbol (styles +orderless-with-initialism)))
+        orderless-component-separator #'orderless-escapable-split-on-space ;; allow escaping space with backslash!
+        orderless-style-dispatchers (list #'+orderless-consult-dispatch
+                                          #'orderless-kwd-dispatch
+                                          #'orderless-affix-dispatch)))
 
 ;; More: https://github.com/minad/marginalia
 (use-package marginalia
@@ -216,10 +315,13 @@
   (setq projectile-completion-system 'ivy)
   :bind (:map projectile-mode-map
               ("C-c p" . projectile-command-map)
-              ("C-c p s" . counsel-projectile-ag)
+              ("C-c p s" . consult-git-grep)
               ("<f2>" . projectile-find-file)))
 
-(use-package counsel-projectile)
+(use-package consult-projectile
+  :straight (consult-projectile :type git :host gitlab :repo "OlMon/consult-projectile" :branch "master"))
+
+;; (use-package counsel-projectile)
 
 ;; (use-package jinja2-mode
 ;;   :mode ("\\.sls" . jinja2-mode))
@@ -251,7 +353,6 @@
 	       (symbols (seq-map #'intern names)))
     (seq-do #'require symbols))
   (pdf-tools-install :no-query))
-
 
 ;; gptel
 (use-package gptel
