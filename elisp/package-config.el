@@ -310,7 +310,6 @@
 (use-package eglot
   :config
   ;; (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
-  (add-to-list 'eglot-server-programs '((ocaml-mode ocaml-ts-mode) "ocamllsp"))
   ;; (add-hook 'c-mode-hook 'eglot-ensure)
   ;; (add-hook 'c++-mode-hook 'eglot-ensure)
   )
@@ -366,23 +365,6 @@
     (seq-do #'require symbols))
   (pdf-tools-install :no-query))
 
-;; gptel
-(use-package gptel
-  :if (string-equal system-type "gnu/linux")
-  :straight t
-  :config
-  (setq gptel-model 'deepseek-chat
-        gptel-backend
-        (gptel-make-openai "DeepSeek"
-          :host "api.deepseek.com"
-          :endpoint "/chat/completions"
-          :key (lambda () (exec-path-from-shell-copy-env "DEEP_SEEK_TOKEN"))
-          :stream t
-          :models '(deepseek-chat deepseek-coder)))
-  ;; (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
-  (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
-  :bind (:map gptel-mode-map
-              ("<f2>" . gptel-send)))
 
 (let ((plantuml-jar-file-path "~/opt/plantuml/plantuml.jar"))
  (when (file-exists-p plantuml-jar-file-path)
@@ -394,3 +376,30 @@
      (setq plantuml-indent-level 2)
      (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
      (add-to-list 'auto-mode-alist '("\\.uml\\'" . plantuml-mode)))))
+
+;; Claude Code
+
+;; for vterm terminal backend:
+(use-package vterm :straight t)
+
+(straight-use-package
+ '(monet :type git :host github :repo "stevemolitor/monet"))
+
+;; install claude-code.el, using :depth 1 to reduce download size:
+(use-package claude-code
+  :straight (:type git :host github :repo "stevemolitor/claude-code.el" :branch "main" :depth 1
+                   :files ("*.el" (:exclude "images/*")))
+  :bind-keymap
+  ("C-c c" . claude-code-command-map) ;; or your preferred key
+  ;; Optionally define a repeat map so that "M" will cycle thru Claude auto-accept/plan/confirm modes after invoking claude-code-cycle-mode / C-c M.
+  :bind
+  (:repeat-map my-claude-code-map ("M" . claude-code-cycle-mode))
+  :config
+  ;; optional IDE integration with Monet
+  ;; (add-hook 'claude-code-process-environment-functions #'monet-start-server)
+  (setq claude-code-terminal-backend 'vterm)
+  (setq claude-code-program (gethash "PATH_CLAUDE" ym2ha0-env))
+
+  ;; (monet-mode 1)
+
+  (claude-code-mode))

@@ -3,6 +3,7 @@
   (load-file (expand-file-name (concat file ".el") "~/.emacs.d/elisp/")))
 
 (add-to-list 'load-path "~/.emacs.d/elisp/")
+(load-user-file "env")
 (load-user-file "editor")
 (load-user-file "setting")
 

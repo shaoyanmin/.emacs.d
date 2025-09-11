@@ -30,3 +30,4 @@ eln-cache/*
 tree-sitter/*
 places
 straight/
+env.el
