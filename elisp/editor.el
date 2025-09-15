@@ -393,11 +393,3 @@ Version: 2020-11-21 2022-08-04 2023-03-01 2023-06-26"
       (start-process "" nil "alacritty" (concat "--working-directory=" absolute-default-directory))))
    ((eq system-type 'berkeley-unix)
     (let ((process-connection-type nil)) (start-process "" nil "alacritty" (concat "--working-directory=" default-directory))))))
-
-;; gptel
-(defun my-gptel-open-chat (&optional key)
-  (interactive "P")
-  (let ((buffer-name (gptel "*DeepSeek*" key)))
-    (if (get-buffer-window buffer-name)
-        (select-window (get-buffer-window buffer-name))
-      (switch-to-buffer buffer-name))))

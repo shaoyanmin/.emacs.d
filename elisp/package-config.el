@@ -1,12 +1,12 @@
-(use-package exec-path-from-shell
-  :if (string-equal system-type "gnu/linux")
-  ;; :init
-  ;; (require 'exec-path-from-shell)
-  ;; (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
-  ;;   (add-to-list 'exec-path-from-shell-variables var))
-  :config
-  (when (daemonp)
-    (exec-path-from-shell-initialize)))
+;; (use-package exec-path-from-shell
+;;   :if (string-equal system-type "gnu/linux")
+;;   ;; :init
+;;   ;; (require 'exec-path-from-shell)
+;;   ;; (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
+;;   ;;   (add-to-list 'exec-path-from-shell-variables var))
+;;   :config
+;;   (when (daemonp)
+;;     (exec-path-from-shell-initialize)))
 
 (use-package nerd-icons
    ;; Use M-x nerd-icons-install-fonts to install Symbols Nerd Fonts Mono for you
@@ -403,3 +403,21 @@
   ;; (monet-mode 1)
 
   (claude-code-mode))
+
+;; REFACTOR
+
+;; Search and replace, rename symbols in project
+(use-package color-rg
+  :straight (:type git :host github :repo "manateelazycat/color-rg")
+  :config
+  (require 'color-rg)
+  (define-key isearch-mode-map (kbd "M-s M-s") 'isearch-toggle-color-rg)
+  (global-set-key (kbd "C-c s") 'color-rg-search-symbol-in-project))
+
+;; Just to definition that favors just-working
+(use-package dumb-jump
+  :config
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
+  (setq dumb-jump-prefer-searcher 'rg)
+  )

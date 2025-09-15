@@ -10,14 +10,6 @@
 (global-set-key (kbd "<f12>") 'xah-open-in-terminal)
 (global-unset-key (kbd "C-<down-mouse-1>"))
 
-;;;; gpt
-(define-prefix-command 'gpt-prefix-map)
-(global-set-key (kbd "M-i") 'gpt-prefix-map)
-(define-key gpt-prefix-map (kbd "M-i") 'gptel-send)
-(define-key gpt-prefix-map (kbd "M-j") 'gptel-rewrite)
-(define-key gpt-prefix-map (kbd "M-k") 'gptel-abort)
-(define-key gpt-prefix-map (kbd "M-o") 'gptel)
-
 
 ;;;; quick move or selection
 (global-set-key (kbd "M-SPC") 'set-mark-command)
