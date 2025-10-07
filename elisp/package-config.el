@@ -1,24 +1,27 @@
-;; (use-package exec-path-from-shell
-;;   :if (string-equal system-type "gnu/linux")
-;;   ;; :init
-;;   ;; (require 'exec-path-from-shell)
-;;   ;; (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
-;;   ;;   (add-to-list 'exec-path-from-shell-variables var))
-;;   :config
-;;   (when (daemonp)
-;;     (exec-path-from-shell-initialize)))
-
 (use-package nerd-icons
    ;; Use M-x nerd-icons-install-fonts to install Symbols Nerd Fonts Mono for you
   )
 
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode)
+  )
+
+(use-package tree-sitter-hl
+  :ensure nil
+  :hook (after-init . global-tree-sitter-mode))
+
 (use-package doom-themes
   :init
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabledk
+  (setq doom-themes-enable-bold t ; if nil, bold is universally disabledk
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
 
   :config
-  (load-theme 'doom-tokyo-night t)
+  (load-theme 'doom-material t)
+  ;; (load-theme 'doom-tokyo-night t)
   (doom-themes-visual-bell-config)
   )
 
@@ -319,12 +322,19 @@
 ;;   :bind (:map c-mode-map
 ;;               ("C-M-l" . clang-format-buffer)))
 
+;; (straight-use-package 'tree-sitter)
+;; (straight-use-package 'tree-sitter-langs
+;;                       :after 'tree-sitter)
+
+
+(use-package lua-mode)
+
 (use-package projectile
   :ensure t
   :init
   (projectile-mode +1)
   :config
-  (setq projectile-completion-system 'ivy)
+  ;; (setq projectile-completion-system 'ivy)
   :bind (:map projectile-mode-map
               ("C-c p" . projectile-command-map)
               ("C-c p s" . consult-git-grep)
@@ -366,16 +376,16 @@
   (pdf-tools-install :no-query))
 
 
-(let ((plantuml-jar-file-path "~/opt/plantuml/plantuml.jar"))
- (when (file-exists-p plantuml-jar-file-path)
-   (use-package plantuml-mode
-     :mode "(\\.\\(plantuml?\\|uml\\|puml\\)\\'"
-     :config
-     (setq plantuml-default-exec-mode 'jar)
-     (setq plantuml-jar-path plantuml-jar-file-path)
-     (setq plantuml-indent-level 2)
-     (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-     (add-to-list 'auto-mode-alist '("\\.uml\\'" . plantuml-mode)))))
+(when (file-exists-p "~/opt/plantuml/plantuml.jar")
+  (use-package plantuml-mode
+    :mode "(\\.\\(plantuml?\\|uml\\|puml\\)\\'"
+    :config
+    (setq plantuml-default-exec-mode 'jar)
+    (setq plantuml-jar-path "~/opt/plantuml/plantuml.jar")
+    (setq plantuml-indent-level 2)
+    (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+    (add-to-list 'auto-mode-alist '("\\.uml\\'" . plantuml-mode))))
+
 
 ;; Claude Code
 
