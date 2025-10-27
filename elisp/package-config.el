@@ -3,14 +3,17 @@
   )
 
 (use-package treesit-auto
+  :if (string-equal system-type "gnu/linux")
   :custom
   (treesit-auto-install 'prompt)
   :config
+  (delete 'lua treesit-auto-langs)
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode)
   )
 
 (use-package tree-sitter-hl
+  :if (string-equal system-type "gnu/linux")
   :ensure nil
   :hook (after-init . global-tree-sitter-mode))
 
@@ -322,12 +325,9 @@
 ;;   :bind (:map c-mode-map
 ;;               ("C-M-l" . clang-format-buffer)))
 
-;; (straight-use-package 'tree-sitter)
-;; (straight-use-package 'tree-sitter-langs
-;;                       :after 'tree-sitter)
 
-
-(use-package lua-mode)
+(use-package lua-mode
+    :if (string-equal system-type "gnu/linux"))
 
 (use-package projectile
   :ensure t
@@ -387,32 +387,32 @@
     (add-to-list 'auto-mode-alist '("\\.uml\\'" . plantuml-mode))))
 
 
-;; Claude Code
+(use-package vterm
+  :straight t
+  :if (string-equal system-type "gnu/linux"))
 
-;; for vterm terminal backend:
-(use-package vterm :straight t)
-
-(straight-use-package
- '(monet :type git :host github :repo "stevemolitor/monet"))
-
-;; install claude-code.el, using :depth 1 to reduce download size:
-(use-package claude-code
-  :straight (:type git :host github :repo "stevemolitor/claude-code.el" :branch "main" :depth 1
-                   :files ("*.el" (:exclude "images/*")))
-  :bind-keymap
-  ("C-c c" . claude-code-command-map) ;; or your preferred key
-  ;; Optionally define a repeat map so that "M" will cycle thru Claude auto-accept/plan/confirm modes after invoking claude-code-cycle-mode / C-c M.
-  :bind
-  (:repeat-map my-claude-code-map ("M" . claude-code-cycle-mode))
+(use-package gptel
+  :if (string-equal system-type "gnu/linux")
+  :straight t
   :config
-  ;; optional IDE integration with Monet
-  ;; (add-hook 'claude-code-process-environment-functions #'monet-start-server)
-  (setq claude-code-terminal-backend 'vterm)
-  (setq claude-code-program (gethash "PATH_CLAUDE" ym2ha0-env))
+  (setq gptel-use-tools t)
+  (setq gptel-backend (gptel-make-openai "Moonshot"
+                        :host "api.moonshot.cn" ;; or "api.moonshot.ai" for the global site
+                        :key (gethash "MOONSHOT_TOKEN" ym2ha0-env)
+                        :stream t ;; optionally enable streaming
+                        :models '(kimi-latest kimi-k2-0711-preview))))
 
-  ;; (monet-mode 1)
 
-  (claude-code-mode))
+(use-package superchat
+  :if (string-equal system-type "gnu/linux")
+  :straight (superchat :type git :host github :repo "yibie/superchat")
+  :after gptel
+  :config
+  (setq superchat-data-directory "~/.emacs.d/superchat/")
+  (setq superchat-completion-check-delay 2)
+  (setq superchat-response-timeout 30)
+  (setq superchat-lang "English"))
+
 
 ;; REFACTOR
 
