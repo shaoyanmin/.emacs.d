@@ -411,8 +411,20 @@
   (setq superchat-data-directory "~/.emacs.d/superchat/")
   (setq superchat-completion-check-delay 2)
   (setq superchat-response-timeout 30)
+  ;; (setq superchat-lang "中文")
   (setq superchat-lang "English"))
 
+;; ARM Chromebook ONLY
+;; M-x toggle-input-method or C-\
+(use-package rime
+  :if (and (let ((cpu-arch (shell-command-to-string "uname -m")))
+             (string-match "aarch64" cpu-arch))
+           (string-equal system-type "gnu/linux"))
+  :custom
+  (default-input-method "rime")
+  :config
+  (setq rime-show-candidate 'popup)
+  (setq rime-user-data-dir "~/opt/rime-ice"))
 
 ;; REFACTOR
 

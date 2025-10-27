@@ -71,3 +71,10 @@
         (obsolete)       ; Obsolete function warnings
         (cl-functions)   ; Common Lisp function warnings
         ))
+
+;; Org-mode
+(with-eval-after-load 'org
+  (setq org-emphasis-alist
+        (delq (assoc "/" org-emphasis-alist)
+              org-emphasis-alist)))
+(add-hook 'org-mode-hook 'auto-fill-mode)

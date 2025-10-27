@@ -33,3 +33,5 @@ straight/
 straight/*
 env.el
 superchat/
+elpa/
+rime/
