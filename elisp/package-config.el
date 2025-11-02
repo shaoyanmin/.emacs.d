@@ -334,10 +334,12 @@
   :init
   (projectile-mode +1)
   :config
+  (require 'ym-chez)
   ;; (setq projectile-completion-system 'ivy)
   :bind (:map projectile-mode-map
               ("C-c p" . projectile-command-map)
               ("C-c p s" . consult-git-grep)
+              ("C-c p t" . ym-chez-jump-between-source-and-test)
               ("C-c p f" . consult-projectile-find-file)
               ("<f2>" . consult-projectile-find-file)))
 
